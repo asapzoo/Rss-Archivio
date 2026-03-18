@@ -4,9 +4,9 @@
 <channel>
 <title>Rec-Zoo 1o5</title>
 <link>https://qcmayzp75rbav4fdaxcujw-on.drv.tw/Zoo</link>
-<description><![CDATA[<a href="https://asapzoo.github.io/Rss-Archivio/rss.xml">NovitÃÂ  da ora anche dai Browser</a>]]> - Dal '99 e' e rimarra'... il programma che NON piace!...</description>
+<description><![CDATA[<a href="https://asapzoo.github.io/Rss-Archivio/rss.xml">NovitÃÂÃÂ  da ora anche dai Browser</a>]]> - Dal '99 e' e rimarra'... il programma che NON piace!...</description>
 <atom:link href="http://feeds.feedburner.com/Zoo105" rel="self"/>
-<lastBuildDate>Tue, 17 Mar 2026 18:28:34 +0100</lastBuildDate>
+<lastBuildDate>Wed, 18 Mar 2026 18:32:11 +0100</lastBuildDate>
 
 <item>
 <title>105 Tv Diretta (In Test)</title>
@@ -45,6 +45,16 @@
 </item>
   
                       <!-- Puntate Giornaliere -->
+
+<item>
+<title>Zoo-18-03-2026-Mer-S@m</title>
+<link>https://app.talkshoe.com/drive_files/download/f1699567-d1a9-4cbb-985b-51237590862b.mp3</link>
+<description>Zoo-Mer,18-03-2026-S@m</description>
+<pubDate>Wed, 18 Mar 2026 18:32:10 +0100</pubDate>
+<guid isPermaLink="false">f1699567-d1a9-4cbb-985b-51237590862b</guid>
+<enclosure length="100123123" type="audio/mpeg" url="https://app.talkshoe.com/drive_files/download/f1699567-d1a9-4cbb-985b-51237590862b.mp3"/>
+</item>
+
 
 <item>
 <title>ZooTv-17-03-2026-Mar-S@m</title>
