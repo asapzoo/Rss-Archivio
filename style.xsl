@@ -321,10 +321,10 @@
       </head>
       <body>
 
-        <!-- HEADER -->
+        <!-- HEADER titolo spam-->
         <header class="site-header">
           <div class="header-inner">
-            <h1>&#127925; <xsl:value-of select="/rss/channel/title"/> <span>Lo Zoo di 105</span></h1>
+            <h1>&#127925; <xsl:value-of select="/rss/channel/title"/> <span></span></h1>
             <p class="desc">
               <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
                  target="_blank"
