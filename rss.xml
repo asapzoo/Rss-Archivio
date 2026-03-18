@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?xml-stylesheet type="text/xsl" href="zoo105.xsl"?>
+<?xml-stylesheet type="text/xsl" href="style.xsl"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
 <channel>
 <title>Rec-Zoo 1o5</title>
