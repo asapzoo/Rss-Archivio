@@ -324,7 +324,7 @@
         <!-- HEADER -->
         <header class="site-header">
           <div class="header-inner">
-            <h1>&#127925; <xsl:value-of select="/rss/channel/title"/> <span>Lo Zoo di 105</span></h1>
+            <h1>&#127925; <xsl:value-of select="/rss/channel/title"/> <span></span></h1>
             <p class="desc"><xsl:value-of select="/rss/channel/description"/></p>
             <div class="toolbar">
               <input class="search-box" type="text" id="searchInput"
