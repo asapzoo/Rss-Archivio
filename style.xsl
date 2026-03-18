@@ -324,7 +324,7 @@
         <!-- HEADER titolo spam-->
         <header class="site-header">
           <div class="header-inner">
-            <h1>&#127925; <xsl:value-of select="/rss/channel/title"/> <span></span></h1>
+            <h1>&#127925; <xsl:value-of select="/rss/channel/title"/> <span> </span></h1>
             <p class="desc">
               <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
                  target="_blank"
@@ -413,7 +413,7 @@
 
         <footer>The Jackal vi augura buon divertimento.</footer>
 
-        <!-- PLAYER BAR — centrato in basso -->
+        <!-- PLAYER BAR -->
         <div id="player-bar">
           <div class="player-top">
             <span id="player-title">—</span>
