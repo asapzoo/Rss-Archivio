@@ -324,7 +324,7 @@
         <!-- HEADER -->
         <header class="site-header">
           <div class="header-inner">
-            <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span>Lo Zoo di 105</span></h1>
+            <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span></span></h1>
             <p class="desc">
               <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
                  target="_blank"
