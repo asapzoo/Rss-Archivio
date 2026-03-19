@@ -441,7 +441,7 @@
           </table>
         </div>
 
-        <footer>The Jackal vi augura buon divertimento.</footer>
+        <footer>The Jackal vi augura buon divertimento. Tnk S@m</footer>
 
         <!-- PLAYER BAR — centrato in basso -->
         <div id="player-bar">
