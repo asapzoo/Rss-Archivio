@@ -3,18 +3,18 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:xhtml="http://www.w3.org/1999/xhtml" version="2.0">
 <channel>
 <title>Rec-Zoo 1o5</title>
-<link>https://qcmayzp75rbav4fdaxcujw-on.drv.tw/Zoo</link>
+<link>https://asapzoo.github.io/Rss-Archivio/rss.xml</link>
 <description><![CDATA[<a href="https://asapzoo.github.io/Rss-Archivio/rss.xml">Novita' da ora anche dai Browser</a>]]> - Dal '99 e' e rimarra'... il programma che NON piace!...</description>
 <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml" rel="self"/>
 <lastBuildDate>Sun, 22 Mar 2026 19:10:55 +0100</lastBuildDate>
 
 <item>
 <title>105 Tv Diretta (In Test)</title>
-<link>https://static3.mediasetplay.mediaset.it/player/index.html?autoplay=true&amp;callSign=EC&amp;appKey=5e14757f1de1c4001d2e6d7c&amp;purl=https://www.105.net/sezioni/12038/tv</link>
-<description>https://static3.mediasetplay.mediaset.it/player/index.html?autoplay=true&amp;amp;callSign=EC&amp;amp;appKey=5e14757f1de1c4001d2e6d7c&amp;amp;purl=https://www.105.net/sezioni/12038/tv</description>
+<link>https://app.talkshoe.com/drive_files/download/321805df-64ee-4e95-9797-e275f177f823.m3u8</link>
+<description>Tv</description>
 <pubDate>Tue, 17 Mar 2026 11:31:33 +0100</pubDate>
-<guid isPermaLink="false">tv</guid>
-<enclosure length="90072678" type="audio/mpeg" url="https://static3.mediasetplay.mediaset.it/player/index.html?autoplay=true&amp;callSign=EC&amp;appKey=5e14757f1de1c4001d2e6d7c&amp;purl=https://www.105.net/sezioni/12038/tv"/>
+<guid isPermaLink="false">https://app.talkshoe.com/drive_files/download/321805df-64ee-4e95-9797-e275f177f823.m3u8</guid>
+<enclosure length="90072678" type="audio/mpeg" url="https://app.talkshoe.com/drive_files/download/321805df-64ee-4e95-9797-e275f177f823.m3u8"/>
 </item>
 
 <item>
