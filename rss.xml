@@ -14,32 +14,6 @@
 <lastBuildDate>Mon, 23 Mar 2026 10:12:30 +0100</lastBuildDate>
 
 <item>
-  <title>📺 105 Tv &amp; Zoo di 105 — Diretta</title>
-  <link>https://asapzoo.github.io/Rss-Archivio/player-multi.html</link>
-  <description><![CDATA[
-    <h2>📺 Diretta TV</h2>
-    <p>Seleziona il canale da guardare in diretta:</p>
-    <ul>
-      <li><strong>105 Tv</strong> — sempre disponibile</li>
-      <li><strong>Zoo di 105</strong> — sempre disponibile</li>
-    </ul>
-    <p><a href="https://asapzoo.github.io/Rss-Archivio/player-multi.html">▶️ Apri il player</a></p>
-  ]]></description>
-  <enclosure url="https://asapzoo.github.io/Rss-Archivio/player-multi.html" type="text/html" length="0"/>
-  <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/player-multi.html</guid>
-  <pubDate>Tue, 24 Mar 2026 06:00:00 +0100</pubDate>
-  <itunes:title>105 Tv &amp; Zoo di 105 Diretta</itunes:title>
-</item>
-<item>
-<title>105 Zoo Radio</title>
-<link>http://icy.unitedradio.it/105Zoo.mp3</link>
-<description>Lo Zoo di 105 24/7 - Qui potete ascoltare lo Zoo h24</description>
-<pubDate>Tue, 17 Mar 2026 11:31:33 +0100</pubDate>
-<guid isPermaLink="false">105Zoo.mp3</guid>
-<enclosure length="98146713" type="audio/mpeg" url="http://icy.unitedradio.it/105Zoo.mp3"/>
-</item>
-
-<item>
 <title>Diretta Radio</title>
 <link>http://icecast.unitedradio.it/Radio105.mp3</link>
 <description>Diretta Radio</description>
