@@ -6,7 +6,7 @@
 <link>https://asapzoo.github.io/Rss-Archivio/rss.xml</link>
 <description><![CDATA[<a href="https://asapzoo.github.io/Rss-Archivio/rss.xml">Novita' da ora anche dai Browser</a>]]> - Dal '99 e' e rimarra'... il programma che NON piace!...</description>
 <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml" rel="self"/>
-<lastBuildDate>Sun, 22 Mar 2026 19:10:55 +0100</lastBuildDate>
+<lastBuildDate>Mon, 23 Mar 2026 10:09:51 +0100</lastBuildDate>
 
 <item>
 <title>105 Tv Diretta (In Test)</title>
@@ -45,6 +45,16 @@
 </item>
   
                       <!-- Puntate Giornaliere -->
+
+<item>
+<title>Zoo-23-03-2026-Lun-S@m</title>
+<link>https://app.talkshoe.com/drive_files/download/4747fd25-e1ff-4fa4-8280-7d9d7321a801.mp3</link>
+<description>Zoo-Lun,23-03-2026-S@m</description>
+<pubDate>Mon, 23 Mar 2026 10:09:51 +0100</pubDate>
+<guid isPermaLink="false">b8308c38-dde7-4adb-82ad-faa6201ff8b1</guid>
+<enclosure length="100123123" type="audio/mpeg" url="https://app.talkshoe.com/drive_files/download/4747fd25-e1ff-4fa4-8280-7d9d7321a801.mp3"/>
+</item>
+
 
 <item>
 <title>ZooTv-20-03-2026-Ven-S@m</title>
