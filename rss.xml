@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?xml-stylesheet type="text/xsl" href="https://asapzoo.github.io/Rss-Archivio/style.xsl"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xhtml="http://www.w3.org/1999/xhtml" version="2.0">
+<rss version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
 <channel>
 <title>Rec-Zoo 1o5</title>
 <link>https://asapzoo.github.io/Rss-Archivio/rss.xml</link>
@@ -9,12 +14,27 @@
 <lastBuildDate>Mon, 23 Mar 2026 10:12:30 +0100</lastBuildDate>
 
 <item>
-<title>105 Tv Diretta (In Test)</title>
-<link>https://live03-col.msr.cdn.mediaset.net/live/ch-r1/r1-clr.isml/manifest_hr.mpd</link>
-<description>Tv</description>
-<pubDate>Tue, 17 Mar 2026 11:31:33 +0100</pubDate>
-<guid isPermaLink="false">https://live03-col.msr.cdn.mediaset.net/live/ch-r1/r1-clr.isml/manifest_hr.mpd</guid>
-<enclosure length="90072678" type="audio/mpeg" url="https://live03-col.msr.cdn.mediaset.net/live/ch-r1/r1-clr.isml/manifest_hr.mpd"/>
+  <title>🔴 Zoo 105 — Live ora</title>
+  <link>https://asapzoo.github.io/Rss-Archivio/player.html</link>
+  <description><![CDATA[
+    <h2>🎙️ Zoo 105 in diretta</h2>
+    <p>Clicca per aprire lo stream live di Zoo 105.</p>
+    <p>
+      <a href="https://asapzoo.github.io/Rss-Archivio/player.html">
+        ▶️ Apri il player live
+      </a>
+    </p>
+  ]]></description>
+  <enclosure
+    url="https://asapzoo.github.io/Rss-Archivio/player.html"
+    type="text/html"
+    length="0"
+  />
+  <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/player.html</guid>
+  <pubDate>Tue, 24 Mar 2026 06:00:00 +0100</pubDate>
+  <itunes:title>Zoo 105 Live</itunes:title>
+  <itunes:summary>Stream live di Zoo 105 in diretta</itunes:summary>
+  <itunes:image href="https://asapzoo.github.io/Rss-Archivio/cover.jpg"/>
 </item>
 
 <item>
