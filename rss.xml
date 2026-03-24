@@ -23,6 +23,15 @@
 </item>
 
 <item>
+<title>Zoo-Radio</title>
+<link>http://icy.unitedradio.it/105Zoo.mp3</link>
+<description>Lo Zoo di 105 24/7 - Qui potete ascoltare lo Zoo h24</description>
+<pubDate>Tue, 24 Mar 2026 17:12:44 +0100</pubDate>
+<guid isPermaLink="true">http://icy.unitedradio.it/105Zoo.mp3</guid>
+<enclosure length="98123123" type="audio/mpeg" url="http://icy.unitedradio.it/105Zoo.mp3"/>
+</item>
+  
+<item>
 <title>Revolution 935</title>
 <link>https://centova87.shoutcastservices.com/proxy/revolution935/stream</link>
 <description>Revolution 935 by Marco Mazzoli</description>
