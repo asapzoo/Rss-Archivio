@@ -18,7 +18,7 @@
 <link>http://icecast.unitedradio.it/Radio105.mp3</link>
 <description>Diretta Radio</description>
 <pubDate>Tue, 17 Mar 2026 11:31:33 +0100</pubDate>
-<guid isPermaLink="false">Radio105.mp3</guid>
+<guid isPermaLink="true">http://icecast.unitedradio.it/Radio105.mp3</guid>
 <enclosure length="98146713" type="audio/mpeg" url="http://icecast.unitedradio.it/Radio105.mp3"/>
 </item>
 
@@ -36,7 +36,7 @@
 <link>https://centova87.shoutcastservices.com/proxy/revolution935/stream</link>
 <description>Revolution 935 by Marco Mazzoli</description>
 <pubDate>Tue, 17 Mar 2026 11:31:33 +0100</pubDate>
-<guid isPermaLink="false">stream</guid>
+<guid isPermaLink="true">https://centova87.shoutcastservices.com/proxy/revolution935/stream</guid>
 <enclosure length="98146713" type="audio/mpeg" url="https://centova87.shoutcastservices.com/proxy/revolution935/stream"/>
 </item>
   
