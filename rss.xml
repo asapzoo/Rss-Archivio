@@ -13,6 +13,39 @@
 <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml" rel="self"/>
 <lastBuildDate>Fri, 27 Mar 2026 16:08:44 +0100</lastBuildDate>
 
+ <!-- ITEM 1: 105 Tv diretta -->
+<item>
+  <title>📺 105 Tv — Diretta</title>
+  <link>https://asapzoo.github.io/Rss-Archivio/player-multi.html</link>
+  <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/105tv-live</guid>
+  <pubDate>Fri, 27 Mar 2026 06:00:00 +0100</pubDate>
+  <description><![CDATA[
+    <p>📺 <strong>105 Tv</strong> in diretta — disponibile 24h</p>
+    <p><a href="https://asapzoo.github.io/Rss-Archivio/player-multi.html">▶️ Guarda la diretta</a></p>
+  ]]></description>
+  <enclosure
+    url="https://live03-col.msr.cdn.mediaset.net/live/ch-ec/ec-clr.isml/manifest_hr.mpd"
+    type="application/dash+xml"
+    length="0"/>
+</item>
+
+<!-- ITEM 2: Zoo di 105 diretta -->
+<item>
+  <title>🦁 Zoo di 105 — Diretta TV 14:00–16:00</title>
+  <link>https://asapzoo.github.io/Rss-Archivio/player-multi.html</link>
+  <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/zoo105-live</guid>
+  <pubDate>Fri, 27 Mar 2026 06:00:00 +0100</pubDate>
+  <description><![CDATA[
+    <p>🦁 <strong>Zoo di 105</strong> in diretta TV<br>
+    ⏰ Tutti i giorni dalle <strong>14:00 alle 16:00</strong></p>
+    <p><a href="https://asapzoo.github.io/Rss-Archivio/player-multi.html">▶️ Guarda la diretta</a></p>
+  ]]></description>
+  <enclosure
+    url="https://live03-col.msr.cdn.mediaset.net/live/ch-r1/r1-clr.isml/manifest_hr.mpd"
+    type="application/dash+xml"
+    length="0"/>
+</item> 
+
 <item>
 <title>Diretta Radio</title>
 <link>http://icecast.unitedradio.it/Radio105.mp3</link>
@@ -41,7 +74,6 @@
 </item>
   
                       <!-- Puntate Giornaliere -->
-
 <item>
 <title>Zoo-27-03-2026-Ven-S@m</title>
 <link>https://app.talkshoe.com/drive_files/download/5e066e64-29b1-47c2-bcaf-b711289aef1f.mp3</link>
