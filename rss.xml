@@ -11,7 +11,7 @@
 <link>https://asapzoo.github.io/Rss-Archivio/rss.xml</link>
 <description>Dal '99 e' e rimarra'... il programma che NON piace!...</description>
 <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml" rel="self"/>
-<lastBuildDate>Fri, 27 Mar 2026 15:27:43 +0100</lastBuildDate>
+<lastBuildDate>Fri, 27 Mar 2026 16:08:44 +0100</lastBuildDate>
 
 <item>
 <title>Diretta Radio</title>
@@ -41,6 +41,16 @@
 </item>
   
                       <!-- Puntate Giornaliere -->
+
+<item>
+<title>Zoo-27-03-2026-Ven-S@m</title>
+<link>https://app.talkshoe.com/drive_files/download/5e066e64-29b1-47c2-bcaf-b711289aef1f.mp3</link>
+<description>Zoo-Ven,27-03-2026-S@m</description>
+<pubDate>Fri, 27 Mar 2026 16:08:43 +0100</pubDate>
+<guid isPermaLink="false">5e066e64-29b1-47c2-bcaf-b711289aef1f</guid>
+<enclosure length="100123123" type="audio/mpeg" url="https://app.talkshoe.com/drive_files/download/5e066e64-29b1-47c2-bcaf-b711289aef1f.mp3"/>
+</item>
+
 <item>
 <title>Zoo-26-03-2026-Compilation-S@m</title>
 <link>https://app.talkshoe.com/drive_files/download/7ecb22dd-2c94-4cad-8282-74c5d1aed486.mp3</link>
