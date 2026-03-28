@@ -13,6 +13,31 @@
 <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml" rel="self"/>
 <lastBuildDate>Fri, 27 Mar 2026 19:02:15 +0100</lastBuildDate>
 
+ <!-- aggiunto ora  -->
+
+
+  <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
+             rel="self" type="application/rss+xml"/>
+
+  <itunes:author>Zoo 105</itunes:author>
+  <itunes:image href="https://asapzoo.github.io/Rss-Archivio/cover.jpg"/>
+  <itunes:category text="Music"/>
+  <itunes:explicit>no</itunes:explicit>
+  <item>
+    <title>🔴 Zoo 105 — Live ora</title>
+    <link>https://asapzoo.github.io/Rss-Archivio/player.html</link>
+    <description><![CDATA[
+      <h2>🎙️ Zoo 105 in diretta</h2>
+      <p><a href="https://asapzoo.github.io/Rss-Archivio/player.html">▶️ Apri il player live</a></p>
+    ]]></description>
+    <enclosure url="https://asapzoo.github.io/Rss-Archivio/player.html" type="text/html" length="0"/>
+    <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/player.html</guid>
+    <pubDate>Tue, 24 Mar 2026 06:00:00 +0100</pubDate>
+    <itunes:title>Zoo 105 Live</itunes:title>
+    <itunes:summary>Stream live di Zoo 105</itunes:summary>
+  </item>
+ <!-- togliere fino qui -->
+
 <item>
 <title>Diretta Radio</title>
 <link>http://icecast.unitedradio.it/Radio105.mp3</link>
