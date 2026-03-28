@@ -28,10 +28,10 @@
     <link>https://asapzoo.github.io/Rss-Archivio/player.html</link>
     <description><![CDATA[
       <h2>🎙️ Zoo 105 in diretta</h2>
-      <p><a href="https://asapzoo.github.io/Rss-Archivio/player.html">▶️ Apri il player live</a></p>
+      <p><a href="https://asapzoo.github.io/Rss-Archivio/player-multi.html">▶️ Apri il player live</a></p>
     ]]></description>
-    <enclosure url="https://asapzoo.github.io/Rss-Archivio/player.html" type="text/html" length="0"/>
-    <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/player.html</guid>
+    <enclosure url="https://asapzoo.github.io/Rss-Archivio/player-multi.html" type="text/html" length="0"/>
+    <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/player-multi.html</guid>
     <pubDate>Tue, 24 Mar 2026 06:00:00 +0100</pubDate>
     <itunes:title>Zoo 105 Live</itunes:title>
     <itunes:summary>Stream live di Zoo 105</itunes:summary>
