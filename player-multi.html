@@ -63,6 +63,12 @@
     /* PLAYER AREA */
     .player-wrap { position: relative; width: 100%; background: #000; border-radius: 10px; overflow: hidden; }
     video { width: 100%; display: block; outline: none; }
+
+    /* Nasconde contatore tempo e barra progresso nei controlli nativi (live stream) */
+    video::-webkit-media-controls-timeline              { display: none !important; }
+    video::-webkit-media-controls-current-time-display  { display: none !important; }
+    video::-webkit-media-controls-time-remaining-display{ display: none !important; }
+    video::-webkit-media-controls-timeline-container    { display: none !important; }
     iframe {
       width: 100%; height: 290px; border: none; display: none; background: #000;
     }
