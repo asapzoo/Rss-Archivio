@@ -15,139 +15,189 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
     }
     .card {
       background: #12121a;
       border: 1px solid #2a2a3e;
       border-radius: 16px;
-      padding: 28px 24px;
-      max-width: 500px;
+      padding: 14px;
+      max-width: 520px;
       width: 100%;
-      text-align: center;
     }
-    .logo { font-size: 34px; font-weight: 900; letter-spacing: 3px; color: #ff3c3c; margin-bottom: 4px; }
-    .logo span { color: #e8e8f0; }
-    .subtitle { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #7070a0; margin-bottom: 24px; }
 
     /* CHANNEL SELECTOR */
-    .channels { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+    .channels { display: flex; gap: 8px; margin-bottom: 10px; }
     .ch-btn {
-      background: #1a1a26;
-      border: 1px solid #2a2a3e;
-      color: #7070a0;
-      border-radius: 10px;
-      padding: 14px 10px;
-      cursor: pointer;
-      transition: all .2s;
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 1.5;
+      flex: 1; background: #1a1a26; border: 1px solid #2a2a3e;
+      border-radius: 8px; padding: 6px 10px; cursor: pointer;
+      transition: all .2s; display: flex; align-items: center; gap: 7px;
     }
-    .ch-btn .ch-icon { font-size: 22px; display: block; margin-bottom: 5px; }
-    .ch-btn .ch-name { display: block; color: #c0c0e0; font-size: 12px; font-weight: 700; }
-    .ch-btn .ch-sub  { display: block; color: #7070a0; font-size: 10px; letter-spacing: 1px; margin-top: 2px; }
-    .ch-btn:hover { border-color: #ff3c3c; color: #e8e8f0; }
-    .ch-btn.active {
-      border-color: #ff3c3c;
-      background: rgba(255,60,60,0.1);
-    }
+    .ch-icon { font-size: 15px; flex-shrink: 0; }
+    .ch-text { display: flex; flex-direction: column; align-items: flex-start; }
+    .ch-name { font-size: 12px; font-weight: 700; color: #c0c0e0; white-space: nowrap; }
+    .ch-sub  { font-size: 9px; color: #7070a0; white-space: nowrap; margin-top: 1px; }
+    .ch-btn:hover { border-color: #ff3c3c; }
+    .ch-btn.active { border-color: #ff3c3c; background: rgba(255,60,60,0.1); }
     .ch-btn.active .ch-name { color: #ff3c3c; }
 
-    /* LIVE BADGE */
+    /* LIVE ROW */
+    .live-row {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px; padding: 0 2px;
+    }
     .live-badge {
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex; align-items: center; gap: 5px;
       background: rgba(255,60,60,0.15); border: 1px solid #ff3c3c;
-      color: #ff3c3c; font-size: 11px; font-weight: 700;
-      letter-spacing: 2px; padding: 4px 14px; border-radius: 20px; margin-bottom: 18px;
+      color: #ff3c3c; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; padding: 3px 10px; border-radius: 20px;
     }
-    .live-dot { width: 7px; height: 7px; background: #ff3c3c; border-radius: 50%; animation: pulse 1.2s infinite; }
+    .live-dot {
+      width: 6px; height: 6px; background: #ff3c3c;
+      border-radius: 50%; animation: pulse 1.2s infinite;
+    }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .ch-label { font-size: 11px; color: #7070a0; }
 
-    video { width: 100%; border-radius: 10px; background: #000; margin-bottom: 16px; outline: none; }
-
-    .status { font-size: 13px; color: #7070a0; min-height: 20px; margin-bottom: 10px; }
-    .status.error { color: #ff6060; }
-    .status.ok    { color: #00e676; }
-    .status.buf   { color: #ffd740; }
-
-    .btn-retry {
-      display: none;
-      margin: 0 auto;
-      padding: 10px 24px;
-      background: #ff3c3c; color: white; border: none;
-      border-radius: 8px; font-size: 14px; font-weight: 600;
-      cursor: pointer; transition: background .2s;
+    /* PLAYER AREA */
+    .player-wrap { position: relative; width: 100%; background: #000; border-radius: 10px; overflow: hidden; }
+    video { width: 100%; display: block; outline: none; }
+    iframe {
+      width: 100%; height: 290px; border: none; display: none; background: #000;
     }
-    .btn-retry:hover { background: #ff5555; }
+
+    /* BOTTOM */
+    .bottom-row {
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 30px; margin-top: 8px; gap: 8px;
+    }
+    .status { font-size: 12px; color: #7070a0; flex: 1; }
+    .status.error { color: #ff6060; }
+    .status.buf   { color: #ffd740; }
+    .status.ok    { color: #00e676; }
+
+    .btn-small {
+      padding: 4px 12px; border-radius: 6px; font-size: 11px;
+      font-weight: 600; cursor: pointer; border: none; white-space: nowrap;
+      transition: all .2s; flex-shrink: 0;
+    }
+    .btn-retry  { background: #ff3c3c; color: white; display: none; }
+    .btn-retry:hover  { background: #ff5555; }
+    .btn-iframe { background: #1a1a40; color: #a080ff; border: 1px solid #7c4dff; display: none; }
+    .btn-iframe:hover { background: #2a2a60; }
+    .btn-dash   { background: #1a1a40; color: #a080ff; border: 1px solid #7c4dff; display: none; }
+    .btn-dash:hover   { background: #2a2a60; }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="logo">ZOO<span>105</span></div>
-    <div class="subtitle">Seleziona canale</div>
 
     <div class="channels">
       <button class="ch-btn active" id="btn-0" onclick="switchChannel(0)">
         <span class="ch-icon">📺</span>
-        <span class="ch-name">105 Tv</span>
-        <span class="ch-sub">DIRETTA</span>
+        <span class="ch-text">
+          <span class="ch-name">105 Tv</span>
+          <span class="ch-sub">DIRETTA</span>
+        </span>
       </button>
       <button class="ch-btn" id="btn-1" onclick="switchChannel(1)">
         <span class="ch-icon">🦁</span>
-        <span class="ch-name">Zoo di 105</span>
-        <span class="ch-sub">DIRETTA</span>
+        <span class="ch-text">
+          <span class="ch-name">Zoo di 105</span>
+          <span class="ch-sub">DIRETTA 14:00–16:00</span>
+        </span>
       </button>
     </div>
 
-    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+    <div class="live-row">
+      <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+      <span class="ch-label" id="chLabel">105 Tv</span>
+    </div>
 
-    <video id="player" controls autoplay playsinline></video>
-    <div class="status" id="status">⏳ Connessione in corso...</div>
-    <button class="btn-retry" id="retryBtn" onclick="initPlayer()">↺ Riprova</button>
+    <div class="player-wrap">
+      <video id="videoEl" controls autoplay playsinline></video>
+      <iframe id="iframeEl" allowfullscreen allow="autoplay; fullscreen"></iframe>
+    </div>
+
+    <div class="bottom-row">
+      <div class="status" id="status"></div>
+      <button class="btn-small btn-retry"  id="retryBtn"  onclick="initDash()">↺ Riprova</button>
+      <button class="btn-small btn-iframe" id="iframeBtn" onclick="switchToIframe()">📺 Usa embed</button>
+      <button class="btn-small btn-dash"   id="dashBtn"   onclick="switchToDash()">⚡ Usa DASH</button>
+    </div>
+
   </div>
 
   <script>
     const CHANNELS = [
-      { url: 'https://live03-col.msr.cdn.mediaset.net/live/ch-ec/ec-clr.isml/manifest_hr.mpd' },
-      { url: 'https://live03-col.msr.cdn.mediaset.net/live/ch-r1/r1-clr.isml/manifest_hr.mpd'  }
+      {
+        url:    'https://live03-col.msr.cdn.mediaset.net/live/ch-ec/ec-clr.isml/manifest_hr.mpd',
+        label:  '105 Tv',
+        iframe: 'https://www.mediasetplay.mediaset.it/embed/live/r105tv'
+      },
+      {
+        url:    'https://live03-col.msr.cdn.mediaset.net/live/ch-r1/r1-clr.isml/manifest_hr.mpd',
+        label:  'Zoo di 105',
+        iframe: 'https://www.mediasetplay.mediaset.it/embed/live/r105'
+      }
     ];
 
-    let current = 0;
-    let player;
+    let current   = 0;
+    let player    = null;
+    let mode      = 'dash'; // 'dash' | 'iframe'
+    let dashFailed = false;
+
+    const videoEl   = document.getElementById('videoEl');
+    const iframeEl  = document.getElementById('iframeEl');
+    const status    = document.getElementById('status');
+    const retryBtn  = document.getElementById('retryBtn');
+    const iframeBtn = document.getElementById('iframeBtn');
+    const dashBtn   = document.getElementById('dashBtn');
+    const chLabel   = document.getElementById('chLabel');
 
     function switchChannel(idx) {
-      if (idx === current && player) return;
+      if (idx === current && player && mode === 'dash') return;
       current = idx;
-      document.querySelectorAll('.ch-btn').forEach((b, i) => {
-        b.classList.toggle('active', i === idx);
-      });
-      initPlayer();
+      document.querySelectorAll('.ch-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+      chLabel.textContent = CHANNELS[idx].label;
+      dashFailed = false;
+      if (mode === 'iframe') {
+        loadIframe();
+      } else {
+        initDash();
+      }
     }
 
-    function initPlayer() {
-      const video    = document.getElementById('player');
-      const status   = document.getElementById('status');
-      const retryBtn = document.getElementById('retryBtn');
+    function initDash() {
+      mode = 'dash';
+      videoEl.style.display  = 'block';
+      iframeEl.style.display = 'none';
+      iframeEl.src           = '';
+      retryBtn.style.display  = 'none';
+      iframeBtn.style.display = 'none';
+      dashBtn.style.display   = 'none';
+      status.textContent      = '';
+      status.className        = 'status';
 
-      status.textContent = '⏳ Connessione in corso...';
-      status.className   = 'status';
-      retryBtn.style.display = 'none';
-
-      if (player) { try { player.destroy(); } catch(e){} }
+      if (player) { try { player.destroy(); } catch(e){} player = null; }
 
       player = dashjs.MediaPlayer().create();
-      player.initialize(video, CHANNELS[current].url, true);
+      player.initialize(videoEl, CHANNELS[current].url, true);
 
       player.on(dashjs.MediaPlayer.events.PLAYBACK_PLAYING, () => {
-        status.textContent = '✓ In riproduzione';
-        status.className   = 'status ok';
+        status.textContent      = '';
+        retryBtn.style.display  = 'none';
+        iframeBtn.style.display = 'block'; // offri sempre la possibilità di cambiare
       });
 
       player.on(dashjs.MediaPlayer.events.ERROR, () => {
-        status.textContent = '✗ Errore stream';
-        status.className   = 'status error';
-        retryBtn.style.display = 'block';
+        if (!dashFailed) {
+          dashFailed = true;
+          status.textContent      = '⚠️ DASH non supportato — carico embed...';
+          status.className        = 'status error';
+          setTimeout(() => switchToIframe(), 1500);
+        }
       });
 
       player.on(dashjs.MediaPlayer.events.PLAYBACK_STALLED, () => {
@@ -156,7 +206,30 @@
       });
     }
 
-    initPlayer();
+    function switchToIframe() {
+      mode = 'iframe';
+      if (player) { try { player.destroy(); } catch(e){} player = null; }
+      loadIframe();
+    }
+
+    function loadIframe() {
+      videoEl.style.display   = 'none';
+      iframeEl.style.display  = 'block';
+      iframeEl.src            = CHANNELS[current].iframe;
+      status.textContent      = '';
+      status.className        = 'status';
+      retryBtn.style.display  = 'none';
+      iframeBtn.style.display = 'none';
+      dashBtn.style.display   = 'block';
+    }
+
+    function switchToDash() {
+      dashFailed = false;
+      initDash();
+    }
+
+    // Avvio
+    initDash();
   </script>
 </body>
 </html>
