@@ -11,7 +11,7 @@
 <link>https://asapzoo.github.io/Rss-Archivio/rss.xml</link>
 <description>Dal '99 e' e rimarra'... il programma che NON piace!...</description>
 <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml" rel="self"/>
-<lastBuildDate>Sat, 28 Mar 2026 20:22:32 +0100</lastBuildDate>
+<lastBuildDate>Sat, 28 Mar 2026 20:37:47 +0100</lastBuildDate>
 
 <!-- ITEM 1: 105 Tv diretta -->
 <item>
@@ -55,6 +55,16 @@
 </item>
   
                       <!-- Puntate Giornaliere -->
+
+<item>
+<title>Zoo-28-03-2026-Compilation-S@m</title>
+<link>https://app.talkshoe.com/drive_files/download/5e066e64-29b1-47c2-bcaf-b711289aef1f.mp3</link>
+<description>Zoo-Sab,28-03-2026-Compilation-S@m</description>
+<pubDate>Sat, 28 Mar 2026 20:37:47 +0100</pubDate>
+<guid isPermaLink="false">5e066e64-29b1-47c2-bcaf-b711289aef1fdffffdfddfd</guid>
+<enclosure length="100123123" type="audio/mpeg" url="https://app.talkshoe.com/drive_files/download/5e066e64-29b1-47c2-bcaf-b711289aef1f.mp3"/>
+</item>
+
 <item>
 <title>ZooTv-27-03-2026-Ven-S@m</title>
 <link>https://app.talkshoe.com/drive_files/download/3b1cf41c-bf26-4266-907d-e7b8d355ba62.mp4</link>
