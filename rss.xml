@@ -14,21 +14,6 @@
 <lastBuildDate>Fri, 27 Mar 2026 19:02:15 +0100</lastBuildDate>
 
 <!-- ITEM 1: 105 Tv diretta -->
-<item>
-  <title>📺 105 Tv — ZooTv Diretta</title>
-  <link>https://asapzoo.github.io/Rss-Archivio/player-multi.html</link>
-  <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/105tv-live</guid>
-  <pubDate>Sat, 28 Mar 2026 06:00:00 +0100</pubDate>
-  <description><![CDATA[
-    <p>📺 <strong>105 Tv</strong> in diretta</p>
-    <p><a href="https://asapzoo.github.io/Rss-Archivio/player-multi.html">▶️ Guarda la diretta</a></p>
-  ]]></description>
-  <enclosure
-    url="https://live03-col.msr.cdn.mediaset.net/live/ch-ec/ec-clr.isml/manifest_hr.mpd"
-    type="application/dash+xml"
-    length="0"/>
-</item>
-
   <item>
   <title>📺 105 Tv &amp; Zoo di 105 — in Diretta</title>
   <link>https://asapzoo.github.io/Rss-Archivio/player-multi.html</link>
