@@ -90,9 +90,8 @@
           .header-text { flex: 1; min-width: 0; }
 
           /* ── IMMAGINE HEADER ─────────────────────────
-             Per cambiare immagine: modifica l'attributo
-             src dell'elemento <img id="header-img"> più
-             sotto, nell'HTML del template.
+             Per cambiare immagine: modifica l'attributo src
+             dell'elemento con id="header-img" piu' sotto.
           ─────────────────────────────────────────── */
           .header-img-wrap {
             flex-shrink: 0;
