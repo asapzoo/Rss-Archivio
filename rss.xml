@@ -5,7 +5,6 @@
   xmlns:media="http://search.yahoo.com/mrss/"
   xmlns:atom="http://www.w3.org/2005/Atom" 
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
 <channel>
 <title>Rec-Zoo 1o5</title>
 <link>https://asapzoo.github.io/Rss-Archivio/rss.xml</link>
@@ -26,7 +25,6 @@
   <enclosure url="https://live03-col.msr.cdn.mediaset.net/live/ch-ec/ec-clr.isml/manifest_hr.mpd" type="application/dash+xml" length="0"/>
 </item>
  <!-- Tv Player -->
-
 <item>
 <title>Diretta Radio</title>
 <link>http://icecast.unitedradio.it/Radio105.mp3</link>
