@@ -69,10 +69,6 @@
     video::-webkit-media-controls-current-time-display  { display: none !important; }
     video::-webkit-media-controls-time-remaining-display{ display: none !important; }
     video::-webkit-media-controls-timeline-container    { display: none !important; }
-    iframe {
-      width: 100%; height: 290px; border: none; display: none; background: #000;
-    }
-
     /* BOTTOM */
     .bottom-row {
       display: flex; align-items: center; justify-content: space-between;
@@ -90,10 +86,6 @@
     }
     .btn-retry  { background: #ff3c3c; color: white; display: none; }
     .btn-retry:hover  { background: #ff5555; }
-    .btn-iframe { background: #1a1a40; color: #a080ff; border: 1px solid #7c4dff; display: none; }
-    .btn-iframe:hover { background: #2a2a60; }
-    .btn-dash   { background: #1a1a40; color: #a080ff; border: 1px solid #7c4dff; display: none; }
-    .btn-dash:hover   { background: #2a2a60; }
   </style>
 </head>
 <body>
@@ -123,14 +115,11 @@
 
     <div class="player-wrap">
       <video id="videoEl" controls autoplay playsinline></video>
-      <iframe id="iframeEl" allowfullscreen allow="autoplay; fullscreen"></iframe>
     </div>
 
     <div class="bottom-row">
       <div class="status" id="status"></div>
-      <button class="btn-small btn-retry"  id="retryBtn"  onclick="initDash()">↺ Riprova</button>
-      <button class="btn-small btn-iframe" id="iframeBtn" onclick="switchToIframe()">📺 Usa embed</button>
-      <button class="btn-small btn-dash"   id="dashBtn"   onclick="switchToDash()">⚡ Usa DASH</button>
+      <button class="btn-small btn-retry" id="retryBtn" onclick="initDash()">↺ Riprova</button>
     </div>
 
   </div>
@@ -138,53 +127,35 @@
   <script>
     const CHANNELS = [
       {
-        url:    'https://live03-col.msr.cdn.mediaset.net/live/ch-ec/ec-clr.isml/manifest_hr.mpd',
-        label:  '105 Tv',
-        iframe: 'https://www.mediasetplay.mediaset.it/embed/live/r105tv'
+        url:   'https://live03-col.msr.cdn.mediaset.net/live/ch-ec/ec-clr.isml/manifest_hr.mpd',
+        label: '105 Tv'
       },
       {
-        url:    'https://live03-col.msr.cdn.mediaset.net/live/ch-r1/r1-clr.isml/manifest_hr.mpd',
-        label:  'Zoo di 105',
-        iframe: 'https://www.mediasetplay.mediaset.it/embed/live/r105'
+        url:   'https://live03-col.msr.cdn.mediaset.net/live/ch-r1/r1-clr.isml/manifest_hr.mpd',
+        label: 'Zoo di 105'
       }
     ];
 
-    let current   = 0;
-    let player    = null;
-    let mode      = 'dash'; // 'dash' | 'iframe'
-    let dashFailed = false;
+    let current = 0;
+    let player  = null;
 
-    const videoEl   = document.getElementById('videoEl');
-    const iframeEl  = document.getElementById('iframeEl');
-    const status    = document.getElementById('status');
-    const retryBtn  = document.getElementById('retryBtn');
-    const iframeBtn = document.getElementById('iframeBtn');
-    const dashBtn   = document.getElementById('dashBtn');
-    const chLabel   = document.getElementById('chLabel');
+    const videoEl  = document.getElementById('videoEl');
+    const status   = document.getElementById('status');
+    const retryBtn = document.getElementById('retryBtn');
+    const chLabel  = document.getElementById('chLabel');
 
     function switchChannel(idx) {
-      if (idx === current && player && mode === 'dash') return;
+      if (idx === current && player) return;
       current = idx;
       document.querySelectorAll('.ch-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
       chLabel.textContent = CHANNELS[idx].label;
-      dashFailed = false;
-      if (mode === 'iframe') {
-        loadIframe();
-      } else {
-        initDash();
-      }
+      initDash();
     }
 
     function initDash() {
-      mode = 'dash';
-      videoEl.style.display  = 'block';
-      iframeEl.style.display = 'none';
-      iframeEl.src           = '';
-      retryBtn.style.display  = 'none';
-      iframeBtn.style.display = 'none';
-      dashBtn.style.display   = 'none';
-      status.textContent      = '';
-      status.className        = 'status';
+      retryBtn.style.display = 'none';
+      status.textContent     = '';
+      status.className       = 'status';
 
       if (player) { try { player.destroy(); } catch(e){} player = null; }
 
@@ -192,46 +163,20 @@
       player.initialize(videoEl, CHANNELS[current].url, true);
 
       player.on(dashjs.MediaPlayer.events.PLAYBACK_PLAYING, () => {
-        status.textContent      = '';
-        retryBtn.style.display  = 'none';
-        iframeBtn.style.display = 'block'; // offri sempre la possibilità di cambiare
+        status.textContent     = '';
+        retryBtn.style.display = 'none';
       });
 
       player.on(dashjs.MediaPlayer.events.ERROR, () => {
-        if (!dashFailed) {
-          dashFailed = true;
-          status.textContent      = '⚠️ DASH non supportato — carico embed...';
-          status.className        = 'status error';
-          setTimeout(() => switchToIframe(), 1500);
-        }
+        status.textContent     = '⚠️ Errore stream — riprova tra qualche secondo.';
+        status.className       = 'status error';
+        retryBtn.style.display = 'block';
       });
 
       player.on(dashjs.MediaPlayer.events.PLAYBACK_STALLED, () => {
         status.textContent = '⏳ Buffering...';
         status.className   = 'status buf';
       });
-    }
-
-    function switchToIframe() {
-      mode = 'iframe';
-      if (player) { try { player.destroy(); } catch(e){} player = null; }
-      loadIframe();
-    }
-
-    function loadIframe() {
-      videoEl.style.display   = 'none';
-      iframeEl.style.display  = 'block';
-      iframeEl.src            = CHANNELS[current].iframe;
-      status.textContent      = '';
-      status.className        = 'status';
-      retryBtn.style.display  = 'none';
-      iframeBtn.style.display = 'none';
-      dashBtn.style.display   = 'block';
-    }
-
-    function switchToDash() {
-      dashFailed = false;
-      initDash();
     }
 
     // Avvio
