@@ -81,6 +81,29 @@
           .header-inner {
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.2rem;
+          }
+
+          .header-text { flex: 1; min-width: 0; }
+
+          /* ── IMMAGINE HEADER ─────────────────────────
+             Per cambiare immagine: modifica l'attributo
+             src dell'elemento <img id="header-img"> più
+             sotto, nell'HTML del template.
+          ─────────────────────────────────────────── */
+          .header-img-wrap {
+            flex-shrink: 0;
+          }
+          #header-img {
+            height: 72px;
+            width: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            display: block;
           }
 
           .site-header h1 {
@@ -218,10 +241,7 @@
           }
           .badge-mp3   { background: #163b2b; color: #4ecca3; border: 1px solid #2a6b4f; }
 
-          .badge-video  { background: #1b2b3b; color: #60a5fa; border: 1px solid #2b5b8b; }
-          .badge-stream { background: #2a0a10; color: #ff4466; border: 1px solid #e94560;
-                          animation: streamPulse 2s infinite; }
-          @keyframes streamPulse { 0%,100%{opacity:1} 50%{opacity:0.65} }
+          .badge-video { background: #1b2b3b; color: #60a5fa; border: 1px solid #2b5b8b; }
 
           .col-date { white-space: nowrap; color: #8888aa; font-size: 0.82rem; }
           .col-desc { color: #8888aa; font-size: 0.82rem; max-width: 260px; }
@@ -256,13 +276,6 @@
           }
           .play-btn-video:hover {
             box-shadow: 0 4px 14px rgba(59,130,246,0.5);
-          }
-          .play-btn-live {
-            background: linear-gradient(135deg, #e94560, #7c1030);
-            box-shadow: 0 2px 8px rgba(233,69,96,0.45);
-          }
-          .play-btn-live:hover {
-            box-shadow: 0 4px 14px rgba(233,69,96,0.65);
           }
 
           footer {
@@ -359,16 +372,6 @@
 
           body.player-open       { padding-bottom: 110px; }
           body.player-open-video { padding-bottom: 290px; }
-          body.player-open-live  { padding-bottom: 420px; }
-
-          #live-iframe {
-            width: 100%;
-            height: 320px;
-            border: none;
-            border-radius: 10px;
-            display: none;
-            background: #000;
-          }
         </style>
       </head>
       <body>
@@ -376,32 +379,44 @@
         <!-- HEADER -->
         <header class="site-header">
           <div class="header-inner">
-            <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span></span></h1>
-            <p class="desc">
-              <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
-                 target="_blank"
-                 style="color:#fd0; text-decoration:underline; font-weight:600;">
-                Novit&#224; da ora anche dai Browser
-              </a>
-              <a href="https://feeds.feedburner.com/zoo105"
-                 target="_blank"
-                 title="App Podcast — feed Zoo 105"
-                 style="color:#fd0; text-decoration:none; font-weight:600; margin-left:0.75rem; border:1px solid #fd0; border-radius:5px; padding:0.1rem 0.5rem; font-size:0.78rem; vertical-align:middle;">
-                &#127911; App Podcast
-              </a>
-            </p>
-            <div class="toolbar">
-              <input class="search-box" type="text" id="searchInput"
-                     placeholder="&#128269; Cerca per titolo o descrizione&#8230;"
-                     oninput="filterTable()"/>
-              <div class="filter-btns">
-                <button class="filter-btn active" onclick="setFilter('all',this)">Tutti</button>
-                <button class="filter-btn" onclick="setFilter('audio/mpeg',this)">&#127925; MP3</button>
 
-                <button class="filter-btn" onclick="setFilter('video',this)">&#127916; Video</button>
+            <!-- Testo + toolbar -->
+            <div class="header-text">
+              <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span></span></h1>
+              <p class="desc">
+                <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
+                   target="_blank"
+                   style="color:#fd0; text-decoration:underline; font-weight:600;">
+                  Novit&#224; da ora anche dai Browser
+                </a>
+                <a href="https://feeds.feedburner.com/zoo105"
+                   target="_blank"
+                   title="App Podcast — feed Zoo 105"
+                   style="color:#fd0; text-decoration:none; font-weight:600; margin-left:0.75rem; border:1px solid #fd0; border-radius:5px; padding:0.1rem 0.5rem; font-size:0.78rem; vertical-align:middle;">
+                  &#127911; App Podcast
+                </a>
+              </p>
+              <div class="toolbar">
+                <input class="search-box" type="text" id="searchInput"
+                       placeholder="&#128269; Cerca per titolo o descrizione&#8230;"
+                       oninput="filterTable()"/>
+                <div class="filter-btns">
+                  <button class="filter-btn active" onclick="setFilter('all',this)">Tutti</button>
+                  <button class="filter-btn" onclick="setFilter('audio/mpeg',this)">&#127925; MP3</button>
+                  <button class="filter-btn" onclick="setFilter('video',this)">&#127916; Video</button>
+                </div>
+                <span class="count-badge" id="countBadge">&#160;</span>
               </div>
-              <span class="count-badge" id="countBadge">&#160;</span>
             </div>
+
+            <!-- IMMAGINE HEADER
+                 Per cambiare foto: sostituisci solo l'URL nel src qui sotto. -->
+            <div class="header-img-wrap">
+              <img id="header-img"
+                   src="https://d1yei2z3i6k35z.cloudfront.net/7771559/68cd3024a516b_Copilot_20250919_112135.jpg"
+                   alt="Zoo 105"/>
+            </div>
+
           </div>
         </header>
 
@@ -421,7 +436,6 @@
               <xsl:for-each select="/rss/channel/item">
                 <xsl:variable name="mediaType" select="enclosure/@type"/>
                 <xsl:variable name="isVideo"   select="contains($mediaType,'video')"/>
-                <xsl:variable name="isStream"  select="contains($mediaType,'dash')"/>
                 <xsl:variable name="mediaUrl"  select="enclosure/@url"/>
                 <tr>
                   <td style="color:#444466; font-size:0.78rem; text-align:right">
@@ -429,9 +443,6 @@
                   </td>
                   <td class="col-title">
                     <xsl:choose>
-                      <xsl:when test="$isStream">
-                        <span class="badge badge-stream">&#128250; LIVE</span><br/>
-                      </xsl:when>
                       <xsl:when test="$isVideo">
                         <span class="badge badge-video">Video</span><br/>
                       </xsl:when>
@@ -441,18 +452,7 @@
                     </xsl:choose>
                     <span class="title-text"><xsl:value-of select="title"/></span>
                   </td>
-                  <td class="col-desc">
-                    <xsl:choose>
-                      <xsl:when test="$isStream">
-                        <a href="https://asapzoo.github.io/Rss-Archivio/player-multi.html"
-                           target="_blank"
-                           style="color:#e94560; font-weight:600; font-size:0.82rem;">&#9654; Apri il player</a>
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <xsl:value-of select="description"/>
-                      </xsl:otherwise>
-                    </xsl:choose>
-                  </td>
+                  <td class="col-desc"><xsl:value-of select="description"/></td>
                   <td class="col-date">
                     <xsl:call-template name="formatDateIT">
                       <xsl:with-param name="dateStr" select="pubDate"/>
@@ -460,13 +460,6 @@
                   </td>
                   <td class="col-play">
                     <xsl:choose>
-                      <xsl:when test="$isStream">
-                        <a class="play-btn play-btn-live" href="#"
-                           onclick="playLive('https://asapzoo.github.io/Rss-Archivio/player-multi.html',this.closest('tr').querySelector('.title-text').textContent,this.closest('tr'));return false;">
-                          <svg viewBox="0 0 24 24"><path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/></svg>
-                          Guarda
-                        </a>
-                      </xsl:when>
                       <xsl:when test="$isVideo">
                         <a class="play-btn play-btn-video" href="#"
                            onclick="playMedia('{$mediaUrl}','video',this.closest('tr').querySelector('.title-text').textContent,this.closest('tr'));return false;">
@@ -500,8 +493,6 @@
           <div class="player-controls">
             <audio id="audio-player" controls="controls" preload="none" style="display:none"></audio>
             <video id="video-player" controls="controls" preload="none" style="display:none"></video>
-            <iframe id="live-iframe" allowfullscreen="allowfullscreen"
-                    allow="autoplay; fullscreen"></iframe>
           </div>
         </div>
 
@@ -550,42 +541,8 @@
           }
 
           function playMedia(url, type, title, rowEl) {
-            var audioEl  = document.getElementById('audio-player');
-            var videoEl  = document.getElementById('video-player');
-            var liveEl   = document.getElementById('live-iframe');
-            var bar      = document.getElementById('player-bar');
-            var titleEl  = document.getElementById('player-title');
-
-            document.querySelectorAll('tr.playing').forEach(function(r) {
-              r.classList.remove('playing');
-            });
-            if (rowEl) rowEl.classList.add('playing');
-            titleEl.textContent = title || url;
-
-            liveEl.src = ''; liveEl.style.display = 'none';
-
-            if (type === 'video') {
-              audioEl.pause(); audioEl.style.display = 'none';
-              videoEl.src = url;
-              videoEl.style.display = 'block';
-              videoEl.play();
-              document.body.classList.remove('player-open', 'player-open-live');
-              document.body.classList.add('player-open-video');
-            } else {
-              videoEl.pause(); videoEl.style.display = 'none';
-              audioEl.src = url;
-              audioEl.style.display = 'block';
-              audioEl.play();
-              document.body.classList.remove('player-open-video', 'player-open-live');
-              document.body.classList.add('player-open');
-            }
-            bar.classList.add('visible');
-          }
-
-          function playLive(url, title, rowEl) {
             var audioEl = document.getElementById('audio-player');
             var videoEl = document.getElementById('video-player');
-            var liveEl  = document.getElementById('live-iframe');
             var bar     = document.getElementById('player-bar');
             var titleEl = document.getElementById('player-title');
 
@@ -593,28 +550,33 @@
               r.classList.remove('playing');
             });
             if (rowEl) rowEl.classList.add('playing');
-            titleEl.textContent = '📺 ' + (title || 'Diretta Live');
+            titleEl.textContent = title || url;
 
-            audioEl.pause(); audioEl.style.display = 'none';
-            videoEl.pause(); videoEl.style.display = 'none';
-
-            liveEl.src = url;
-            liveEl.style.display = 'block';
-
-            document.body.classList.remove('player-open', 'player-open-video');
-            document.body.classList.add('player-open-live');
+            if (type === 'video') {
+              audioEl.pause(); audioEl.style.display = 'none';
+              videoEl.src = url;
+              videoEl.style.display = 'block';
+              videoEl.play();
+              document.body.classList.remove('player-open');
+              document.body.classList.add('player-open-video');
+            } else {
+              videoEl.pause(); videoEl.style.display = 'none';
+              audioEl.src = url;
+              audioEl.style.display = 'block';
+              audioEl.play();
+              document.body.classList.remove('player-open-video');
+              document.body.classList.add('player-open');
+            }
             bar.classList.add('visible');
           }
 
           function closePlayer() {
             var audioEl = document.getElementById('audio-player');
             var videoEl = document.getElementById('video-player');
-            var liveEl  = document.getElementById('live-iframe');
             audioEl.pause(); audioEl.src = '';
             videoEl.pause(); videoEl.src = '';
-            liveEl.src = ''; liveEl.style.display = 'none';
             document.getElementById('player-bar').classList.remove('visible');
-            document.body.classList.remove('player-open', 'player-open-video', 'player-open-live');
+            document.body.classList.remove('player-open', 'player-open-video');
             document.querySelectorAll('tr.playing').forEach(function(r) {
               r.classList.remove('playing');
             });
