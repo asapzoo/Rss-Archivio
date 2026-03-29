@@ -81,6 +81,28 @@
           .header-inner {
             max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.2rem;
+          }
+
+          .header-text { flex: 1; min-width: 0; }
+
+          /* ── IMMAGINE HEADER ─────────────────────────
+             Per cambiare immagine: modifica l'attributo src
+             dell'elemento con id="header-img" piu' sotto.
+          ─────────────────────────────────────────── */
+          .header-img-wrap {
+            flex-shrink: 0;
+          }
+          #header-img {
+            height: 72px;
+            width: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            display: block;
           }
 
           .site-header h1 {
@@ -356,26 +378,44 @@
         <!-- HEADER -->
         <header class="site-header">
           <div class="header-inner">
-            <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span></span></h1>
-            <p class="desc">
-              <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
-                 target="_blank"
-                 style="color:#fd0; text-decoration:underline; font-weight:600;">
-                Novit&#224; da ora anche dai Browser
-              </a>
-            </p>
-            <div class="toolbar">
-              <input class="search-box" type="text" id="searchInput"
-                     placeholder="&#128269; Cerca per titolo o descrizione&#8230;"
-                     oninput="filterTable()"/>
-              <div class="filter-btns">
-                <button class="filter-btn active" onclick="setFilter('all',this)">Tutti</button>
-                <button class="filter-btn" onclick="setFilter('audio/mpeg',this)">&#127925; MP3</button>
 
-                <button class="filter-btn" onclick="setFilter('video',this)">&#127916; Video</button>
+            <!-- Testo + toolbar -->
+            <div class="header-text">
+              <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span></span></h1>
+              <p class="desc">
+                <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
+                   target="_blank"
+                   style="color:#fd0; text-decoration:underline; font-weight:600;">
+                  Novit&#224; da ora anche dai Browser
+                </a>
+                <a href="https://feeds.feedburner.com/zoo105"
+                   target="_blank"
+                   title="App Podcast — feed Zoo 105"
+                   style="color:#fd0; text-decoration:none; font-weight:600; margin-left:0.75rem; border:1px solid #fd0; border-radius:5px; padding:0.1rem 0.5rem; font-size:0.78rem; vertical-align:middle;">
+                  &#127911; App Podcast
+                </a>
+              </p>
+              <div class="toolbar">
+                <input class="search-box" type="text" id="searchInput"
+                       placeholder="&#128269; Cerca per titolo o descrizione&#8230;"
+                       oninput="filterTable()"/>
+                <div class="filter-btns">
+                  <button class="filter-btn active" onclick="setFilter('all',this)">Tutti</button>
+                  <button class="filter-btn" onclick="setFilter('audio/mpeg',this)">&#127925; MP3</button>
+                  <button class="filter-btn" onclick="setFilter('video',this)">&#127916; Video</button>
+                </div>
+                <span class="count-badge" id="countBadge">&#160;</span>
               </div>
-              <span class="count-badge" id="countBadge">&#160;</span>
             </div>
+
+            <!-- IMMAGINE HEADER
+                 Per cambiare foto: sostituisci solo l'URL nel src qui sotto. -->
+            <div class="header-img-wrap">
+              <img id="header-img"
+                   src="https://d1yei2z3i6k35z.cloudfront.net/7771559/68cd3024a516b_Copilot_20250919_112135.jpg"
+                   alt="Zoo 105"/>
+            </div>
+
           </div>
         </header>
 
