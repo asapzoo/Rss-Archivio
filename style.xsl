@@ -465,7 +465,7 @@
                    Svuota il testo per nascondere la barra. -->
               <div class="msg-bar" id="msgBar">
                 <span class="msg-bar-icon">&#128227;</span>
-                <span id="msgText">Scrivi qui il messaggio del giorno</span>
+                <span id="msgText">Tutti stronzi dal 99'</span>
               </div>
 
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
