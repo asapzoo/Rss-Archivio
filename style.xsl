@@ -482,7 +482,7 @@
                    ═══════════════════════════════════════════ -->
               <div class="msg-bar" id="msgBar">
                 <span class="msg-bar-icon">&#128227;</span>
-                <span id="msgText">Lo Zoo non moriràb mai!!!</span>
+                <span id="msgText">Lo Zoo non morirà mai!!!</span>
               </div>
 
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
