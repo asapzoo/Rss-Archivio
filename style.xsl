@@ -91,18 +91,17 @@
 
           .header-text { flex: 1; min-width: 0; }
 
-          /* colonna destra: messaggio sopra, immagine sotto */
+          /* ── Colonna destra: [msg | immagine] in riga ── */
           .header-img-wrap {
             flex-shrink: 0;
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.4rem;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.75rem;
           }
 
           .header-img-wrap a { display: block; line-height: 0; }
 
-          /* Immagine: si adatta all'altezza disponibile */
           .header-img {
             height: clamp(80px, 8.5vw, 120px);
             width: auto;
@@ -113,25 +112,25 @@
           }
           .header-img:hover { opacity: 0.82; transform: scale(1.03); }
 
-          /* ── MESSAGGIO DEL GIORNO ──────────────────── *
-             Per modificare: cambia il testo nello span#msgText nell'HTML.
-             Per nasconderlo: svuota il testo (scompare automaticamente).
-          * ─────────────────────────────────────────── */
+          /* ── MESSAGGIO DEL GIORNO ──────────────────────
+             Per modificare: cerca id="msgText" nel file HTML
+             e cambia solo il testo tra i tag span.
+             Per nasconderlo: svuota il testo (scompare da solo).
+          ─────────────────────────────────────────────── */
           .msg-bar {
-            width: 100%;
             display: flex;
             align-items: flex-start;
             gap: 0.35rem;
             background: rgba(233,69,96,0.10);
             border: 1px solid rgba(233,69,96,0.28);
             border-radius: 7px;
-            padding: 0.32rem 0.65rem;
-            font-size: 0.72rem;
+            padding: 0.4rem 0.7rem;
+            font-size: 0.73rem;
             color: #ffb3be;
             line-height: 1.4;
-            max-width: 220px;
+            max-width: 180px;
           }
-          .msg-bar-icon { flex-shrink: 0; font-size: 0.8rem; margin-top: 1px; }
+          .msg-bar-icon { flex-shrink: 0; font-size: 0.82rem; margin-top: 1px; }
           .msg-bar.msg-empty { display: none; }
 
           .site-header h1 {
@@ -457,15 +456,17 @@
               </div>
             </div>
 
-            <!-- Colonna destra: messaggio del giorno + immagine -->
+            <!-- Colonna destra: [📣 messaggio] [immagine] in riga -->
             <div class="header-img-wrap">
 
-              <!-- MESSAGGIO DEL GIORNO
-                   Modifica solo il testo tra i tag span.
-                   Svuota il testo per nascondere la barra. -->
+              <!-- ═══════════════════════════════════════════
+                   MESSAGGIO DEL GIORNO
+                   Modifica il testo nello span qui sotto.
+                   Svuotalo per nascondere la barra.
+                   ═══════════════════════════════════════════ -->
               <div class="msg-bar" id="msgBar">
                 <span class="msg-bar-icon">&#128227;</span>
-                <span id="msgText">Tutti stronzi dal 99'</span>
+                <span id="msgText">Scrivi qui il messaggio del giorno</span>
               </div>
 
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
@@ -688,8 +689,9 @@
           window.onload = function() {
             filterTable();
 
-            // Padding-top = altezza header (compensa position:fixed)
             var hdr = document.getElementById('siteHeader');
+
+            // Padding-top corpo = altezza header (compensa position:fixed)
             function setBodyPad() {
               document.body.style.paddingTop = hdr.offsetHeight + 'px';
             }
