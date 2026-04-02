@@ -91,10 +91,13 @@
 
           .header-text { flex: 1; min-width: 0; }
 
-          /* ── Colonna destra: solo immagine, ancora per msg-bar ── */
+          /* ── Colonna destra: [msg | immagine] in riga ── */
           .header-img-wrap {
             flex-shrink: 0;
-            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.75rem;
           }
 
           .header-img-wrap a { display: block; line-height: 0; }
@@ -115,38 +118,19 @@
              Per nasconderlo: svuota il testo (scompare da solo).
           ─────────────────────────────────────────────── */
           .msg-bar {
-            /* esce dal flusso: flotta sopra la toolbar crescendo a sinistra */
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: calc(100% + 0.75rem);
-            /* larghezza: si adatta al testo, max 42vw */
-            width: max-content;
-            max-width: clamp(140px, 42vw, 520px);
-            z-index: 10;
-            /* stile */
             display: flex;
             align-items: flex-start;
             gap: 0.35rem;
-            background: rgba(20,20,46,0.93);
-            border: 1px solid rgba(233,69,96,0.35);
+            background: rgba(233,69,96,0.10);
+            border: 1px solid rgba(233,69,96,0.28);
             border-radius: 7px;
             padding: 0.4rem 0.7rem;
             font-size: 0.73rem;
             color: #ffb3be;
             line-height: 1.4;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+            max-width: 180px;
           }
           .msg-bar-icon { flex-shrink: 0; font-size: 0.82rem; margin-top: 1px; }
-          /* testo: max 2 righe poi tronca con ellipsis */
-          #msgText {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            word-break: break-word;
-          }
           .msg-bar.msg-empty { display: none; }
 
           .site-header h1 {
@@ -437,6 +421,68 @@
 
           body.player-open       { padding-bottom: 110px; }
           body.player-open-video { padding-bottom: 290px; }
+
+          /* ── COLONNA # con dot + stella ────────────── */
+          .col-num {
+            text-align: center;
+            vertical-align: middle;
+            padding: 0.5rem 0.6rem !important;
+            width: 54px;
+          }
+          .num-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+          }
+          .num-text { color: #444466; font-size: 0.78rem; line-height: 1; }
+
+          /* Progress dot SVG */
+          .prog-dot { display: block; width: 16px; height: 16px; flex-shrink: 0; }
+          .prog-dot .trk { fill: none; stroke: #2a2a3e; stroke-width: 2.5; }
+          .prog-dot .fil {
+            fill: none; stroke: #2a2a3e; stroke-width: 2.5;
+            stroke-linecap: round;
+            transform: rotate(-90deg); transform-origin: 50% 50%;
+            transition: stroke-dashoffset 1.2s linear, stroke 0.4s;
+          }
+          .prog-dot.started .fil { stroke: #60b0ff; }
+          .prog-dot.done    .fil { stroke: #00e676; }
+
+          /* Fav star button */
+          .fav-btn {
+            background: none; border: none; cursor: pointer;
+            font-size: 13px; padding: 0; line-height: 1; color: #2a2a3e;
+            transition: color 0.2s, transform 0.15s;
+          }
+          .fav-btn:hover { color: #ffd740; transform: scale(1.25); }
+          .fav-btn.faved { color: #ffd740; }
+
+          /* Righe stato */
+          tr.favorited .title-text { color: #e8c840 !important; }
+          tr.listened  { opacity: 0.72; }
+          tr.listened.playing,
+          tr.listened:hover { opacity: 1; }
+
+          /* ── TORNA SU ─────────────────────────────── */
+          #backTop {
+            position: fixed;
+            bottom: 28px; right: 28px;
+            width: 42px; height: 42px;
+            background: #12121e;
+            border: 1.5px solid #e94560;
+            color: #e94560;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s, transform 0.25s;
+            z-index: 150;
+            box-shadow: 0 2px 14px rgba(233,69,96,0.35);
+          }
+          #backTop.visible { opacity: 1; pointer-events: auto; }
+          #backTop:hover { transform: translateY(-3px); background: rgba(233,69,96,0.12); }
         </style>
       </head>
       <body>
@@ -467,6 +513,7 @@
                   <button class="filter-btn active" onclick="setFilter('all',this)">Tutti</button>
                   <button class="filter-btn" onclick="setFilter('audio/mpeg',this)">&#127925; MP3</button>
                   <button class="filter-btn" onclick="setFilter('video',this)">&#127916; Video</button>
+                  <button class="filter-btn" onclick="setFilter('fav',this)">&#11088; Preferiti</button>
                 </div>
                 <span class="count-badge" id="countBadge">&#160;</span>
               </div>
@@ -502,7 +549,7 @@
           <table id="mainTable">
             <thead>
               <tr>
-                <th style="width:3%">#</th>
+                <th style="width:54px; text-align:center">&#9733;</th>
                 <th style="width:28%">Titolo</th>
                 <th style="width:22%">Descrizione</th>
                 <th style="width:16%">Data pubblicazione</th>
@@ -515,9 +562,35 @@
                 <xsl:variable name="isVideo"   select="contains($mediaType,'video')"/>
                 <xsl:variable name="isStream"  select="contains($mediaType,'dash')"/>
                 <xsl:variable name="mediaUrl"  select="enclosure/@url"/>
-                <tr>
-                  <td style="color:#444466; font-size:0.78rem; text-align:right">
-                    <xsl:value-of select="position()"/>
+                <tr data-url="{$mediaUrl}">
+                  <!-- Colonna #: stella + dot progresso + numero -->
+                  <td class="col-num">
+                    <div class="num-wrap">
+                      <!-- stella preferiti -->
+                      <button class="fav-btn" title="Aggiungi ai preferiti"
+                              onclick="toggleFav(this.closest('tr').dataset.url, this); return false;">
+                        &#9733;
+                      </button>
+                      <!-- dot progresso (solo per audio/video, non live) -->
+                      <xsl:choose>
+                        <xsl:when test="not($isStream)">
+                          <svg class="prog-dot" viewBox="0 0 16 16"
+                               data-url="{$mediaUrl}">
+                            <circle class="trk" cx="8" cy="8" r="6"/>
+                            <circle class="fil" cx="8" cy="8" r="6"
+                                    stroke-dasharray="37.7"
+                                    stroke-dashoffset="37.7"/>
+                          </svg>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <span style="display:inline-block;width:16px;height:16px;"/>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                      <!-- numero progressivo -->
+                      <span class="num-text">
+                        <xsl:value-of select="position()"/>
+                      </span>
+                    </div>
                   </td>
                   <td class="col-title">
                     <xsl:choose>
@@ -583,6 +656,10 @@
           </table>
         </div>
 
+        <button id="backTop" title="Torna su" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+          &#8679;
+        </button>
+
         <footer>The Jackal vi augura buon divertimento. Tnk S@m</footer>
 
         <!-- PLAYER BAR — centrato in basso -->
@@ -600,7 +677,85 @@
         </div>
 
         <script>
+          /* ═══════════════════════════════════════════════════════
+             STORAGE  (localStorage key: z105)
+             Struttura: { "url": { p, d, f, done } }
+               p    = posizione (secondi)
+               d    = durata    (secondi)
+               f    = preferito (bool)
+               done = ascoltato >85% (bool)
+             ═══════════════════════════════════════════════════════ */
+          var STORE_KEY = 'z105';
+          var store = {};
+
+          function loadStore() {
+            try { store = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); }
+            catch(e) { store = {}; }
+          }
+
+          function saveStore() {
+            try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); }
+            catch(e) {}
+          }
+
+          function getEntry(url) {
+            if (!store[url]) store[url] = { p: 0, d: 0, f: false, done: false };
+            return store[url];
+          }
+
+          /* ── Aggiorna dot SVG per un URL ──────────────────────── */
+          function updateDot(url) {
+            var e = store[url];
+            if (!e) return;
+            var dot = document.querySelector('.prog-dot[data-url="' + url + '"]');
+            if (!dot) return;
+            var fil = dot.querySelector('.fil');
+            if (!fil) return;
+            var circ = 37.7; // 2π×6
+            var pct  = (e.d > 0) ? Math.min(e.p / e.d, 1) : 0;
+            fil.setAttribute('stroke-dashoffset', (circ * (1 - pct)).toFixed(2));
+            dot.classList.remove('started', 'done');
+            if (e.done || pct >= 0.85)     { dot.classList.add('done'); }
+            else if (pct > 0.01)            { dot.classList.add('started'); }
+          }
+
+          function updateAllDots() {
+            Object.keys(store).forEach(function(url) { updateDot(url); });
+          }
+
+          /* ── Riapplica classi fav/listened alle righe ─────────── */
+          function applyRowStates() {
+            getRows().forEach(function(row) {
+              var url = row.dataset.url;
+              if (!url) return;
+              var e = store[url];
+              if (!e) return;
+              row.classList.toggle('favorited', !!e.f);
+              row.classList.toggle('listened',  !!(e.done || (e.d > 0 &amp;&amp; e.p / e.d >= 0.85)));
+              var star = row.querySelector('.fav-btn');
+              if (star) star.classList.toggle('faved', !!e.f);
+            });
+          }
+
+          /* ── Toggle preferito ─────────────────────────────────── */
+          function toggleFav(url, btn) {
+            if (!url) return;
+            var e = getEntry(url);
+            e.f = !e.f;
+            saveStore();
+            btn.classList.toggle('faved', e.f);
+            var row = btn.closest('tr');
+            if (row) row.classList.toggle('favorited', e.f);
+            // se filtro preferiti attivo, aggiorna visibilità
+            if (currentFilter === 'fav') filterTable();
+          }
+
+          /* ═══════════════════════════════════════════════════════
+             PLAYER
+             ═══════════════════════════════════════════════════════ */
           var currentFilter = 'all';
+          var saveTimer = null;
+          var currentUrl = null;
 
           function getRows() {
             return document.querySelectorAll('#mainTable tbody tr');
@@ -623,8 +778,17 @@
               var text = row.textContent.toLowerCase();
               var mt   = rowMediaType(row);
               var matchSearch = !q || text.indexOf(q) !== -1;
-              var matchFilter = currentFilter === 'all' ||
-                (currentFilter === 'video' ? mt === 'video' : mt === currentFilter);
+              var matchFilter;
+              if (currentFilter === 'all') {
+                matchFilter = true;
+              } else if (currentFilter === 'fav') {
+                var url = row.dataset.url;
+                matchFilter = url &amp;&amp; store[url] &amp;&amp; !!store[url].f;
+              } else if (currentFilter === 'video') {
+                matchFilter = mt === 'video';
+              } else {
+                matchFilter = mt === currentFilter;
+              }
               if (matchSearch &amp;&amp; matchFilter) {
                 row.classList.remove('hidden'); visible++;
               } else {
@@ -643,6 +807,47 @@
             filterTable();
           }
 
+          /* ── Salva posizione ogni 5s e al pause ───────────────── */
+          function startSaving(mediaEl, url) {
+            clearInterval(saveTimer);
+            saveTimer = setInterval(function() { persistPos(mediaEl, url); }, 5000);
+            mediaEl.addEventListener('pause',  function() { persistPos(mediaEl, url); }, { once: false });
+            mediaEl.addEventListener('ended',  function() { markDone(url); }, { once: false });
+          }
+
+          function persistPos(mediaEl, url) {
+            if (!url || !mediaEl.duration) return;
+            var e = getEntry(url);
+            e.p = mediaEl.currentTime;
+            e.d = mediaEl.duration;
+            if (e.p / e.d >= 0.85) { e.done = true; }
+            saveStore();
+            updateDot(url);
+            // aggiorna stato riga
+            var row = document.querySelector('tr[data-url="' + url + '"]');
+            if (row) row.classList.toggle('listened', !!(e.done));
+          }
+
+          function markDone(url) {
+            var e = getEntry(url);
+            e.done = true;
+            saveStore();
+            updateDot(url);
+            var row = document.querySelector('tr[data-url="' + url + '"]');
+            if (row) row.classList.add('listened');
+          }
+
+          /* ── timeupdate → aggiorna dot in tempo reale ─────────── */
+          function hookTimeUpdate(mediaEl, url) {
+            mediaEl.addEventListener('timeupdate', function() {
+              if (!mediaEl.duration) return;
+              var e = getEntry(url);
+              e.p = mediaEl.currentTime;
+              e.d = mediaEl.duration;
+              updateDot(url);
+            });
+          }
+
           function playMedia(url, type, title, rowEl) {
             var audioEl  = document.getElementById('audio-player');
             var videoEl  = document.getElementById('video-player');
@@ -653,17 +858,32 @@
             document.querySelectorAll('tr.playing').forEach(function(r) { r.classList.remove('playing'); });
             if (rowEl) rowEl.classList.add('playing');
             titleEl.textContent = title || url;
-
             liveEl.src = ''; liveEl.style.display = 'none';
+            clearInterval(saveTimer);
+            currentUrl = url;
+
+            var savedPos = (store[url] &amp;&amp; store[url].p > 5) ? store[url].p : 0;
 
             if (type === 'video') {
               audioEl.pause(); audioEl.style.display = 'none';
-              videoEl.src = url; videoEl.style.display = 'block'; videoEl.play();
+              videoEl.src = url; videoEl.style.display = 'block';
+              videoEl.addEventListener('loadedmetadata', function() {
+                if (savedPos > 0) { videoEl.currentTime = savedPos; }
+                videoEl.play();
+              }, { once: true });
+              hookTimeUpdate(videoEl, url);
+              startSaving(videoEl, url);
               document.body.classList.remove('player-open', 'player-open-live');
               document.body.classList.add('player-open-video');
             } else {
               videoEl.pause(); videoEl.style.display = 'none';
-              audioEl.src = url; audioEl.style.display = 'block'; audioEl.play();
+              audioEl.src = url; audioEl.style.display = 'block';
+              audioEl.addEventListener('loadedmetadata', function() {
+                if (savedPos > 0) { audioEl.currentTime = savedPos; }
+                audioEl.play();
+              }, { once: true });
+              hookTimeUpdate(audioEl, url);
+              startSaving(audioEl, url);
               document.body.classList.remove('player-open-video', 'player-open-live');
               document.body.classList.add('player-open');
             }
@@ -680,11 +900,10 @@
             document.querySelectorAll('tr.playing').forEach(function(r) { r.classList.remove('playing'); });
             if (rowEl) rowEl.classList.add('playing');
             titleEl.textContent = '&#128250; ' + (title || 'Diretta Live');
-
+            clearInterval(saveTimer);
             audioEl.pause(); audioEl.style.display = 'none';
             videoEl.pause(); videoEl.style.display = 'none';
             liveEl.src = url; liveEl.style.display = 'block';
-
             document.body.classList.remove('player-open', 'player-open-video');
             document.body.classList.add('player-open-live');
             bar.classList.add('visible');
@@ -694,46 +913,60 @@
             var audioEl = document.getElementById('audio-player');
             var videoEl = document.getElementById('video-player');
             var liveEl  = document.getElementById('live-iframe');
+            if (currentUrl) persistPos(audioEl.style.display !== 'none' ? audioEl : videoEl, currentUrl);
+            clearInterval(saveTimer);
             audioEl.pause(); audioEl.src = '';
             videoEl.pause(); videoEl.src = '';
             liveEl.src = ''; liveEl.style.display = 'none';
             document.getElementById('player-bar').classList.remove('visible');
             document.body.classList.remove('player-open', 'player-open-video', 'player-open-live');
             document.querySelectorAll('tr.playing').forEach(function(r) { r.classList.remove('playing'); });
+            currentUrl = null;
           }
 
+          /* ═══════════════════════════════════════════════════════
+             INIT
+             ═══════════════════════════════════════════════════════ */
           window.onload = function() {
+            loadStore();
             filterTable();
+            applyRowStates();
+            updateAllDots();
 
             var hdr = document.getElementById('siteHeader');
 
-            // Padding-top corpo = altezza header (compensa position:fixed)
             function setBodyPad() {
               document.body.style.paddingTop = hdr.offsetHeight + 'px';
             }
             setBodyPad();
             window.addEventListener('resize', setBodyPad);
 
-            // Nascondi header scrollando giù, mostralo tornando su
+            // Nascondi header scrollando giù
             var lastY = 0;
             var ticking = false;
+            var backTop = document.getElementById('backTop');
+
             window.addEventListener('scroll', function() {
               if (!ticking) {
                 window.requestAnimationFrame(function() {
                   var y = window.scrollY;
+                  // header hide/show
                   if (y > lastY &amp;&amp; y > hdr.offsetHeight) {
                     hdr.classList.add('hdr-hidden');
                   } else {
                     hdr.classList.remove('hdr-hidden');
                   }
                   lastY = y;
+                  // back-to-top
+                  if (y > 400) { backTop.classList.add('visible'); }
+                  else         { backTop.classList.remove('visible'); }
                   ticking = false;
                 });
                 ticking = true;
               }
             }, { passive: true });
 
-            // Nascondi msg-bar se il testo è vuoto
+            // Nascondi msg-bar se testo vuoto
             var msgEl = document.getElementById('msgText');
             var barEl = document.getElementById('msgBar');
             if (msgEl &amp;&amp; barEl &amp;&amp; !msgEl.textContent.trim()) {
