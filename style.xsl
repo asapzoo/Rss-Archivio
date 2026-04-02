@@ -67,16 +67,20 @@
             min-height: 100vh;
           }
 
-          /* ── HEADER ─────────────────────────────────── */
+          /* ── HEADER — fixed, scompare scrollando giù ── */
           .site-header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            padding: 2rem 2rem 1.5rem;
+            padding: 1.2rem 2rem 0.9rem;
             border-bottom: 2px solid #e94560;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
           }
+          .site-header.hdr-hidden { transform: translateY(-100%); }
 
           .header-inner {
             max-width: 1400px;
@@ -84,7 +88,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1.2rem;
+            gap: 1.4rem;
           }
 
           .header-text { flex: 1; min-width: 0; }
@@ -94,14 +98,32 @@
           .header-img-wrap a { display: block; line-height: 0; }
 
           .header-img {
-            height: 72px;
+            height: clamp(88px, 9.5vw, 130px);
             width: auto;
             border-radius: 10px;
             object-fit: cover;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-            transition: opacity 0.2s;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.55);
+            transition: opacity 0.2s, transform 0.2s;
           }
-          .header-img:hover { opacity: 0.85; }
+          .header-img:hover { opacity: 0.82; transform: scale(1.03); }
+
+          /* ── MESSAGGIO DEL GIORNO ──────────────────── */
+          .msg-bar {
+            max-width: 1400px;
+            margin: 0.6rem auto 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(233,69,96,0.10);
+            border: 1px solid rgba(233,69,96,0.30);
+            border-radius: 7px;
+            padding: 0.45rem 1rem;
+            font-size: 0.82rem;
+            color: #ffb3be;
+            line-height: 1.4;
+          }
+          .msg-bar-icon { flex-shrink: 0; font-size: 0.95rem; }
+          .msg-bar.msg-empty { display: none; }
 
           .site-header h1 {
             font-size: 2rem;
@@ -396,7 +418,7 @@
       <body>
 
         <!-- HEADER -->
-        <header class="site-header">
+        <header class="site-header" id="siteHeader">
           <div class="header-inner">
 
             <div class="header-text">
@@ -436,6 +458,17 @@
             </div>
 
           </div>
+
+          <!-- ═══════════════════════════════════════════════════════
+               MESSAGGIO DEL GIORNO
+               Per modificare: cambia solo il testo fra i tag <span>.
+               Per nasconderlo: cancella il testo (lascia lo span vuoto).
+               ═══════════════════════════════════════════════════════ -->
+          <div class="msg-bar" id="msgBar">
+            <span class="msg-bar-icon">&#128227;</span>
+            <span id="msgText">Scrivi qui il tuo messaggio del giorno...</span>
+          </div>
+
         </header>
 
         <!-- TABLE -->
@@ -643,7 +676,43 @@
             document.querySelectorAll('tr.playing').forEach(function(r) { r.classList.remove('playing'); });
           }
 
-          window.onload = function() { filterTable(); };
+          window.onload = function() {
+            filterTable();
+
+            // ── Padding-top corpo = altezza header ────────────────
+            var hdr = document.getElementById('siteHeader');
+            function setBodyPad() {
+              document.body.style.paddingTop = hdr.offsetHeight + 'px';
+            }
+            setBodyPad();
+            window.addEventListener('resize', setBodyPad);
+
+            // ── Nascondi header scrollando giù, mostralo su ────────
+            var lastScrollY = 0;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+              if (!ticking) {
+                window.requestAnimationFrame(function() {
+                  var y = window.scrollY;
+                  if (y > lastScrollY &amp;&amp; y > hdr.offsetHeight) {
+                    hdr.classList.add('hdr-hidden');
+                  } else {
+                    hdr.classList.remove('hdr-hidden');
+                  }
+                  lastScrollY = y;
+                  ticking = false;
+                });
+                ticking = true;
+              }
+            }, { passive: true });
+
+            // ── Messaggio del giorno: nascondi barra se testo vuoto ─
+            var msgEl = document.getElementById('msgText');
+            var barEl = document.getElementById('msgBar');
+            if (msgEl &amp;&amp; barEl) {
+              if (!msgEl.textContent.trim()) { barEl.style.display = 'none'; }
+            }
+          };
         </script>
 
       </body>
