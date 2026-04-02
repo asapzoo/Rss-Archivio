@@ -91,18 +91,13 @@
 
           .header-text { flex: 1; min-width: 0; }
 
-          /* ── Colonna destra: [msg | immagine] in riga ── */
+          /* ── Colonna destra: solo immagine, ancora per msg-bar ── */
           .header-img-wrap {
             flex-shrink: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 0.75rem;
-            /* cresce verso il centro: il msg-bar prende spazio libero */
-            min-width: 0;
+            position: relative;
           }
 
-          .header-img-wrap a { display: block; line-height: 0; flex-shrink: 0; }
+          .header-img-wrap a { display: block; line-height: 0; }
 
           .header-img {
             height: clamp(80px, 8.5vw, 120px);
@@ -120,22 +115,31 @@
              Per nasconderlo: svuota il testo (scompare da solo).
           ─────────────────────────────────────────────── */
           .msg-bar {
+            /* esce dal flusso: flotta sopra la toolbar crescendo a sinistra */
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: calc(100% + 0.75rem);
+            /* larghezza: si adatta al testo, max 42vw */
+            width: max-content;
+            max-width: clamp(140px, 42vw, 520px);
+            z-index: 10;
+            /* stile */
             display: flex;
             align-items: flex-start;
             gap: 0.35rem;
-            background: rgba(233,69,96,0.10);
-            border: 1px solid rgba(233,69,96,0.28);
+            background: rgba(20,20,46,0.93);
+            border: 1px solid rgba(233,69,96,0.35);
             border-radius: 7px;
             padding: 0.4rem 0.7rem;
             font-size: 0.73rem;
             color: #ffb3be;
             line-height: 1.4;
-            /* nessun max-width fisso: si allarga verso sinistra fino allo spazio libero */
-            min-width: 80px;
-            flex: 1 1 auto;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
           }
           .msg-bar-icon { flex-shrink: 0; font-size: 0.82rem; margin-top: 1px; }
-          /* testo: massimo 2 righe, poi tronca con … */
+          /* testo: max 2 righe poi tronca con ellipsis */
           #msgText {
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -478,7 +482,7 @@
                    ═══════════════════════════════════════════ -->
               <div class="msg-bar" id="msgBar">
                 <span class="msg-bar-icon">&#128227;</span>
-                <span id="msgText">Tutti stronzi dal 99'...</span>
+                <span id="msgText">Scrivi qui il messaggio del giorno</span>
               </div>
 
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
@@ -579,7 +583,7 @@
           </table>
         </div>
 
-        <footer>The Jackal vi augura buon divertimento. Tnx S@m</footer>
+        <footer>The Jackal vi augura buon divertimento. Tnk S@m</footer>
 
         <!-- PLAYER BAR — centrato in basso -->
         <div id="player-bar">
