@@ -98,9 +98,11 @@
             flex-direction: row;
             align-items: center;
             gap: 0.75rem;
+            /* cresce verso il centro: il msg-bar prende spazio libero */
+            min-width: 0;
           }
 
-          .header-img-wrap a { display: block; line-height: 0; }
+          .header-img-wrap a { display: block; line-height: 0; flex-shrink: 0; }
 
           .header-img {
             height: clamp(80px, 8.5vw, 120px);
@@ -128,9 +130,19 @@
             font-size: 0.73rem;
             color: #ffb3be;
             line-height: 1.4;
-            max-width: 180px;
+            /* nessun max-width fisso: si allarga verso sinistra fino allo spazio libero */
+            min-width: 80px;
+            flex: 1 1 auto;
           }
           .msg-bar-icon { flex-shrink: 0; font-size: 0.82rem; margin-top: 1px; }
+          /* testo: massimo 2 righe, poi tronca con … */
+          #msgText {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-word;
+          }
           .msg-bar.msg-empty { display: none; }
 
           .site-header h1 {
@@ -466,7 +478,7 @@
                    ═══════════════════════════════════════════ -->
               <div class="msg-bar" id="msgBar">
                 <span class="msg-bar-icon">&#128227;</span>
-                <span id="msgText">Dal 99' è e rimarrà il programma che non piace!!!</span>
+                <span id="msgText">Scrivi qui il messaggio del giorno</span>
               </div>
 
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
