@@ -70,12 +70,10 @@
           /* ── HEADER — fixed, scompare scrollando giù ── */
           .site-header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            padding: 1.2rem 2rem 0.9rem;
+            padding: 1rem 2rem 0.9rem;
             border-bottom: 2px solid #e94560;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
@@ -88,17 +86,25 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1.4rem;
+            gap: 1.2rem;
           }
 
           .header-text { flex: 1; min-width: 0; }
 
-          .header-img-wrap { flex-shrink: 0; }
+          /* colonna destra: messaggio sopra, immagine sotto */
+          .header-img-wrap {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.4rem;
+          }
 
           .header-img-wrap a { display: block; line-height: 0; }
 
+          /* Immagine: si adatta all'altezza disponibile */
           .header-img {
-            height: clamp(88px, 9.5vw, 130px);
+            height: clamp(80px, 8.5vw, 120px);
             width: auto;
             border-radius: 10px;
             object-fit: cover;
@@ -107,22 +113,25 @@
           }
           .header-img:hover { opacity: 0.82; transform: scale(1.03); }
 
-          /* ── MESSAGGIO DEL GIORNO ──────────────────── */
+          /* ── MESSAGGIO DEL GIORNO ──────────────────── *
+             Per modificare: cambia il testo nello span#msgText nell'HTML.
+             Per nasconderlo: svuota il testo (scompare automaticamente).
+          * ─────────────────────────────────────────── */
           .msg-bar {
-            max-width: 1400px;
-            margin: 0.6rem auto 0;
+            width: 100%;
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            align-items: flex-start;
+            gap: 0.35rem;
             background: rgba(233,69,96,0.10);
-            border: 1px solid rgba(233,69,96,0.30);
+            border: 1px solid rgba(233,69,96,0.28);
             border-radius: 7px;
-            padding: 0.45rem 1rem;
-            font-size: 0.82rem;
+            padding: 0.32rem 0.65rem;
+            font-size: 0.72rem;
             color: #ffb3be;
             line-height: 1.4;
+            max-width: 220px;
           }
-          .msg-bar-icon { flex-shrink: 0; font-size: 0.95rem; }
+          .msg-bar-icon { flex-shrink: 0; font-size: 0.8rem; margin-top: 1px; }
           .msg-bar.msg-empty { display: none; }
 
           .site-header h1 {
@@ -448,27 +457,27 @@
               </div>
             </div>
 
+            <!-- Colonna destra: messaggio del giorno + immagine -->
             <div class="header-img-wrap">
+
+              <!-- MESSAGGIO DEL GIORNO
+                   Modifica solo il testo tra i tag span.
+                   Svuota il testo per nascondere la barra. -->
+              <div class="msg-bar" id="msgBar">
+                <span class="msg-bar-icon">&#128227;</span>
+                <span id="msgText">Scrivi qui il messaggio del giorno</span>
+              </div>
+
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
                  target="_blank" title="Come ascoltare i podcast dello Zoo di 105">
                 <img class="header-img"
                      src="https://d1yei2z3i6k35z.cloudfront.net/7771559/68cd3024a516b_Copilot_20250919_112135.jpg"
                      alt="Zoo 105"/>
               </a>
+
             </div>
 
           </div>
-
-          <!-- ═══════════════════════════════════════════════════════
-               MESSAGGIO DEL GIORNO
-               Per modificare: cambia solo il testo fra i tag <span>.
-               Per nasconderlo: cancella il testo (lascia lo span vuoto).
-               ═══════════════════════════════════════════════════════ -->
-          <div class="msg-bar" id="msgBar">
-            <span class="msg-bar-icon">&#128227;</span>
-            <span id="msgText">Scrivi qui il tuo messaggio del giorno...</span>
-          </div>
-
         </header>
 
         <!-- TABLE -->
@@ -679,7 +688,7 @@
           window.onload = function() {
             filterTable();
 
-            // ── Padding-top corpo = altezza header ────────────────
+            // Padding-top = altezza header (compensa position:fixed)
             var hdr = document.getElementById('siteHeader');
             function setBodyPad() {
               document.body.style.paddingTop = hdr.offsetHeight + 'px';
@@ -687,30 +696,30 @@
             setBodyPad();
             window.addEventListener('resize', setBodyPad);
 
-            // ── Nascondi header scrollando giù, mostralo su ────────
-            var lastScrollY = 0;
+            // Nascondi header scrollando giù, mostralo tornando su
+            var lastY = 0;
             var ticking = false;
             window.addEventListener('scroll', function() {
               if (!ticking) {
                 window.requestAnimationFrame(function() {
                   var y = window.scrollY;
-                  if (y > lastScrollY &amp;&amp; y > hdr.offsetHeight) {
+                  if (y > lastY &amp;&amp; y > hdr.offsetHeight) {
                     hdr.classList.add('hdr-hidden');
                   } else {
                     hdr.classList.remove('hdr-hidden');
                   }
-                  lastScrollY = y;
+                  lastY = y;
                   ticking = false;
                 });
                 ticking = true;
               }
             }, { passive: true });
 
-            // ── Messaggio del giorno: nascondi barra se testo vuoto ─
+            // Nascondi msg-bar se il testo è vuoto
             var msgEl = document.getElementById('msgText');
             var barEl = document.getElementById('msgBar');
-            if (msgEl &amp;&amp; barEl) {
-              if (!msgEl.textContent.trim()) { barEl.style.display = 'none'; }
+            if (msgEl &amp;&amp; barEl &amp;&amp; !msgEl.textContent.trim()) {
+              barEl.classList.add('msg-empty');
             }
           };
         </script>
