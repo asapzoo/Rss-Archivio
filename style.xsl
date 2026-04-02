@@ -444,7 +444,9 @@
         <!-- HEADER -->
         <header class="site-header" id="siteHeader">
           <div class="header-inner">
-
+ <!-- ═══════════════════════════════════════════
+                  TITOLO HTML tra </span> <span/>
+                   ═══════════════════════════════════════════ -->
             <div class="header-text">
               <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span/></h1>
               <p class="desc">
