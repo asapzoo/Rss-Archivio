@@ -134,8 +134,8 @@
           .msg-bar.msg-empty { display: none; }
           /* ── TITOLO del Html ────────────────────────────────── */
           .site-header h1 {
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 2rem;
+            font-weight: 700;
             letter-spacing: -0.5px;
             color: #63c6f7;
           }
@@ -510,7 +510,7 @@
               <p class="desc">
                 <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
                    target="_blank"
-                   style="color:#fd0; text-decoration:underline; font-weight:600;">
+                   style="color:#fd0; text-decoration:underline; font-weight:300;">
                   Novit&#224; da ora anche dai Browser
                 </a>
                 <a href="https://feeds.feedburner.com/zoo105"
@@ -543,7 +543,7 @@
                    ═══════════════════════════════════════════ -->
               <div class="msg-bar" id="msgBar">
                 <span class="msg-bar-icon">&#128227;</span>
-                <span id="msgText">Scrivi qui il messaggio del giorno</span>
+                <span id="msgText">Lo Zoo non morirà MAI!!!</span>
               </div>
 
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
