@@ -137,7 +137,7 @@
             font-size: 2rem;
             font-weight: 800;
             letter-spacing: -0.5px;
-            color: #ffffff;
+            color: #63c6f7;
           }
 
           .site-header h1 span { color: #fd0; }
