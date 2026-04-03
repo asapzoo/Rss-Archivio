@@ -506,7 +506,7 @@
           <div class="header-inner">
 
             <div class="header-text">
-              <h1><span><a style="color:#fd0; font-weight:300;"</a><xsl:value-of select="/rss/channel/title"/></span> by The Jackal™ Tnx S@m <span/></h1>
+              <h1><span><a style="color:#fd0; font-weight:300;"<xsl:value-of select="/rss/channel/title"/></span> by The Jackal™ Tnx S@m <span/></a></h1>
               <p class="desc">
                 <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
                    target="_blank"
