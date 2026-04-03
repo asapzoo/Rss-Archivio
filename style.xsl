@@ -135,7 +135,7 @@
           /* ── TITOLO del Html ────────────────────────────────── */
           .site-header h1 {
             font-size: 2rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: -0.5px;
             color: #63c6f7;
           }
@@ -506,7 +506,7 @@
           <div class="header-inner">
 
             <div class="header-text">
-              <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> by The Jackal™ Tnx S@m <span/></h1>
+              <h1>&#127925; font-weight:300; <span><xsl:value-of select="/rss/channel/title"/></span> by The Jackal™ Tnx S@m <span/></h1>
               <p class="desc">
                 <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
                    target="_blank"
