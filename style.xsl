@@ -650,7 +650,7 @@
         </div>
 
         <button id="backTop" title="Torna su"
-                onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+                onclick="window.scrollTo({{top:0,behavior:'smooth'}})">&#8679;</button>
 
         <footer>The Jackal vi augura buon divertimento. Tnk S@m</footer>
 
