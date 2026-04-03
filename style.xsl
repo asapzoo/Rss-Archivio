@@ -422,24 +422,32 @@
           body.player-open       { padding-bottom: 110px; }
           body.player-open-video { padding-bottom: 290px; }
 
-          /* ── COLONNA # (stella + dot + numero) ───── */
+          /* ── COLONNA # (numero | dot | stella) in riga ── */
           .col-num {
-            width: 52px; text-align: center;
+            width: 80px; text-align: center;
             vertical-align: middle;
-            padding: 0.4rem 0.3rem !important;
+            padding: 0.4rem 0.4rem 0.4rem 0.6rem !important;
           }
-          .num-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-          .num-text { color: #444466; font-size: 0.75rem; line-height: 1; }
+          .num-wrap {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+          }
+          .num-text { color: #666688; font-size: 0.75rem; line-height: 1; min-width: 16px; text-align: right; }
 
-          /* Dot progresso: cerchio colorato CSS */
+          /* Dot progresso — bianco di default, cliccabile per reset */
           .prog-dot {
-            display: block;
+            display: inline-block;
             width: 10px; height: 10px;
             border-radius: 50%;
-            background: #2a2a3e;
-            border: 2px solid #2a2a3e;
-            transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+            background: #c8c8e0;
+            border: 1.5px solid #c8c8e0;
+            cursor: pointer;
             flex-shrink: 0;
+            transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+            title: "Click per reset";
           }
           .prog-dot.started {
             background: #2060b0;
@@ -449,18 +457,21 @@
           .prog-dot.done {
             background: #00a050;
             border-color: #00e676;
-            box-shadow: 0 0 5px rgba(0,230,118,0.5);
+            box-shadow: 0 0 6px rgba(0,230,118,0.6);
           }
 
           /* Stella preferiti */
           .fav-btn {
             background: none; border: none; cursor: pointer;
             font-size: 13px; padding: 0; line-height: 1;
-            color: #2a2a3e;
+            color: #3a3a5e;
             transition: color 0.2s, transform 0.15s;
           }
           .fav-btn:hover { color: #ffd740; transform: scale(1.3); }
           .fav-btn.faved { color: #ffd740; }
+
+          /* Poco spazio tra colonna # e titolo */
+          .col-title { max-width: 300px; padding-left: 0.4rem !important; }
 
           /* Righe ascoltate / preferite */
           tr.favorited .title-text { color: #e8c840 !important; }
@@ -514,7 +525,7 @@
                        oninput="filterTable()"/>
                 <div class="filter-btns">
                   <button class="filter-btn active" onclick="setFilter('all',this)">Tutti</button>
-                  <button class="filter-btn" onclick="setFilter('audio/mpeg',this)">&#127925; MP3</button>
+                  <button class="filter-btn" onclick="setFilter('audio/mpeg',this)">&#127911; MP3</button>
                   <button class="filter-btn" onclick="setFilter('video',this)">&#127916; Video</button>
                   <button class="filter-btn" onclick="setFilter('fav',this)">&#9733; Preferiti</button>
                 </div>
@@ -532,7 +543,7 @@
                    ═══════════════════════════════════════════ -->
               <div class="msg-bar" id="msgBar">
                 <span class="msg-bar-icon">&#128227;</span>
-                <span id="msgText">Lo Zoo non morirà MAI!!!</span>
+                <span id="msgText">Scrivi qui il messaggio del giorno</span>
               </div>
 
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
@@ -570,19 +581,22 @@
                 <tr id="r{$idx}">
                   <td class="col-num">
                     <div class="num-wrap">
-                      <!-- stella preferiti: passa solo l'indice, l'URL lo legge JS -->
-                      <button class="fav-btn" title="Preferito"
-                              onclick="toggleFav({$idx},this);return false;">&#9733;</button>
-                      <!-- dot progresso (solo non-live) -->
+                      <!-- numero progressivo -->
+                      <span class="num-text"><xsl:value-of select="position()"/></span>
+                      <!-- dot progresso solo per righe non-streaming (pos > 4) -->
                       <xsl:choose>
-                        <xsl:when test="not($isStream)">
-                          <span class="prog-dot" id="dot{$idx}"> </span>
+                        <xsl:when test="position() &gt; 4">
+                          <span class="prog-dot" id="dot{$idx}"
+                                title="Click per reset"
+                                onclick="resetDot({$idx});return false;"> </span>
                         </xsl:when>
                         <xsl:otherwise>
                           <span style="display:inline-block;width:10px;height:10px;"> </span>
                         </xsl:otherwise>
                       </xsl:choose>
-                      <span class="num-text"><xsl:value-of select="position()"/></span>
+                      <!-- stella preferiti -->
+                      <button class="fav-btn" title="Preferito"
+                              onclick="toggleFav({$idx},this);return false;">&#9733;</button>
                     </div>
                   </td>
                   <td class="col-title">
@@ -652,7 +666,7 @@
         <button id="backTop" title="Torna su"
                 onclick="window.scrollTo({{top:0,behavior:'smooth'}})">&#8679;</button>
 
-        <footer>The Jackal™ vi augura buon divertimento. Tnx S@m</footer>
+        <footer>The Jackal vi augura buon divertimento. Tnk S@m</footer>
 
         <!-- PLAYER BAR -->
         <div id="player-bar">
@@ -694,8 +708,20 @@
             dot.classList.remove('started','done');
             if (!e) return;
             var pct = e.d > 0 ? e.p / e.d : 0;
-            if (e.done || pct >= 0.85)   dot.classList.add('done');
+            if (e.done || pct >= 0.99)   dot.classList.add('done');
             else if (pct > 0.01)         dot.classList.add('started');
+          }
+
+          /* ── Reset dot: azzera posizione e stato ─────────────── */
+          function resetDot(idx) {
+            var url = Z_URLS[idx];
+            if (!url) return;
+            if (!confirm('Resettare la cronologia di ascolto per questo episodio?')) return;
+            if (ST[url]) { ST[url].p = 0; ST[url].d = 0; ST[url].done = false; }
+            saveST();
+            updateDot(idx);
+            var row = document.getElementById('r'+idx);
+            if (row) row.classList.remove('listened');
           }
 
           function updateAllDots() {
@@ -710,7 +736,7 @@
               if (!row || !url) continue;
               var e = ST[url];
               var faved    = e &amp;&amp; e.f;
-              var listened = e &amp;&amp; (e.done || (e.d > 0 &amp;&amp; e.p/e.d >= 0.85));
+              var listened = e &amp;&amp; (e.done || (e.d > 0 &amp;&amp; e.p/e.d >= 0.99));
               row.classList.toggle('favorited', !!faved);
               row.classList.toggle('listened',  !!listened);
               var star = row.querySelector('.fav-btn');
@@ -780,7 +806,7 @@
             var e = entry(url);
             e.p = el.currentTime;
             e.d = el.duration;
-            if (e.d > 0 &amp;&amp; e.p/e.d >= 0.85) e.done = true;
+            if (e.d > 0 &amp;&amp; e.p/e.d >= 0.99) e.done = true;
             saveST();
             updateDot(idx);
             var row = document.getElementById('r'+idx);
