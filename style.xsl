@@ -91,10 +91,13 @@
 
           .header-text { flex: 1; min-width: 0; }
 
-          /* ── Colonna destra: solo immagine, ancora per msg-bar ── */
+          /* ── Colonna destra: [msg | immagine] in riga ── */
           .header-img-wrap {
             flex-shrink: 0;
-            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.75rem;
           }
 
           .header-img-wrap a { display: block; line-height: 0; }
@@ -115,38 +118,19 @@
              Per nasconderlo: svuota il testo (scompare da solo).
           ─────────────────────────────────────────────── */
           .msg-bar {
-            /* esce dal flusso: flotta sopra la toolbar crescendo a sinistra */
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: calc(100% + 0.75rem);
-            /* larghezza: si adatta al testo, max 42vw */
-            width: max-content;
-            max-width: clamp(140px, 42vw, 520px);
-            z-index: 10;
-            /* stile */
             display: flex;
             align-items: flex-start;
             gap: 0.35rem;
-            background: rgba(20,20,46,0.93);
-            border: 1px solid rgba(233,69,96,0.35);
+            background: rgba(233,69,96,0.10);
+            border: 1px solid rgba(233,69,96,0.28);
             border-radius: 7px;
             padding: 0.4rem 0.7rem;
             font-size: 0.73rem;
             color: #ffb3be;
             line-height: 1.4;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+            max-width: 180px;
           }
           .msg-bar-icon { flex-shrink: 0; font-size: 0.82rem; margin-top: 1px; }
-          /* testo: max 2 righe poi tronca con ellipsis */
-          #msgText {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            word-break: break-word;
-          }
           .msg-bar.msg-empty { display: none; }
 
           .site-header h1 {
@@ -437,6 +421,71 @@
 
           body.player-open       { padding-bottom: 110px; }
           body.player-open-video { padding-bottom: 290px; }
+
+          /* ── COLONNA # (stella + dot + numero) ───── */
+          .col-num {
+            width: 52px; text-align: center;
+            vertical-align: middle;
+            padding: 0.4rem 0.3rem !important;
+          }
+          .num-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+          .num-text { color: #444466; font-size: 0.75rem; line-height: 1; }
+
+          /* Dot progresso: cerchio colorato CSS */
+          .prog-dot {
+            display: block;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: #2a2a3e;
+            border: 2px solid #2a2a3e;
+            transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+            flex-shrink: 0;
+          }
+          .prog-dot.started {
+            background: #2060b0;
+            border-color: #60b0ff;
+            box-shadow: 0 0 5px rgba(96,176,255,0.6);
+          }
+          .prog-dot.done {
+            background: #00a050;
+            border-color: #00e676;
+            box-shadow: 0 0 5px rgba(0,230,118,0.5);
+          }
+
+          /* Stella preferiti */
+          .fav-btn {
+            background: none; border: none; cursor: pointer;
+            font-size: 13px; padding: 0; line-height: 1;
+            color: #2a2a3e;
+            transition: color 0.2s, transform 0.15s;
+          }
+          .fav-btn:hover { color: #ffd740; transform: scale(1.3); }
+          .fav-btn.faved { color: #ffd740; }
+
+          /* Righe ascoltate / preferite */
+          tr.favorited .title-text { color: #e8c840 !important; }
+          tr.listened { opacity: 0.65; }
+          tr.listened.playing, tr.listened:hover { opacity: 1; }
+
+          /* ── TORNA SU ─────────────────────────────── */
+          #backTop {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            width: 40px; height: 40px;
+            background: #12121e;
+            border: 1.5px solid #e94560;
+            color: #e94560;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s, transform 0.25s;
+            z-index: 150;
+            box-shadow: 0 2px 12px rgba(233,69,96,0.3);
+          }
+          #backTop.vis { opacity: 1; pointer-events: auto; }
+          #backTop:hover { transform: translateY(-3px); background: rgba(233,69,96,0.1); }
         </style>
       </head>
       <body>
@@ -444,9 +493,7 @@
         <!-- HEADER -->
         <header class="site-header" id="siteHeader">
           <div class="header-inner">
- <!-- ═══════════════════════════════════════════
-                  TITOLO HTML tra </span> <span/>
-                   ═══════════════════════════════════════════ -->
+
             <div class="header-text">
               <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span/></h1>
               <p class="desc">
@@ -469,6 +516,7 @@
                   <button class="filter-btn active" onclick="setFilter('all',this)">Tutti</button>
                   <button class="filter-btn" onclick="setFilter('audio/mpeg',this)">&#127925; MP3</button>
                   <button class="filter-btn" onclick="setFilter('video',this)">&#127916; Video</button>
+                  <button class="filter-btn" onclick="setFilter('fav',this)">&#9733; Preferiti</button>
                 </div>
                 <span class="count-badge" id="countBadge">&#160;</span>
               </div>
@@ -484,7 +532,7 @@
                    ═══════════════════════════════════════════ -->
               <div class="msg-bar" id="msgBar">
                 <span class="msg-bar-icon">&#128227;</span>
-                <span id="msgText">Lo Zoo non morirà mai!!!</span>
+                <span id="msgText">Scrivi qui il messaggio del giorno</span>
               </div>
 
               <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
@@ -504,7 +552,7 @@
           <table id="mainTable">
             <thead>
               <tr>
-                <th style="width:3%">#</th>
+                <th style="width:52px; text-align:center">&#9733;</th>
                 <th style="width:28%">Titolo</th>
                 <th style="width:22%">Descrizione</th>
                 <th style="width:16%">Data pubblicazione</th>
@@ -517,9 +565,25 @@
                 <xsl:variable name="isVideo"   select="contains($mediaType,'video')"/>
                 <xsl:variable name="isStream"  select="contains($mediaType,'dash')"/>
                 <xsl:variable name="mediaUrl"  select="enclosure/@url"/>
-                <tr>
-                  <td style="color:#444466; font-size:0.78rem; text-align:right">
-                    <xsl:value-of select="position()"/>
+                <xsl:variable name="idx"       select="position()-1"/>
+                <!-- id numerico sulla riga; l'URL viene dall'array JS Z_URLS[idx] -->
+                <tr id="r{$idx}">
+                  <td class="col-num">
+                    <div class="num-wrap">
+                      <!-- stella preferiti: passa solo l'indice, l'URL lo legge JS -->
+                      <button class="fav-btn" title="Preferito"
+                              onclick="toggleFav({$idx},this);return false;">&#9733;</button>
+                      <!-- dot progresso (solo non-live) -->
+                      <xsl:choose>
+                        <xsl:when test="not($isStream)">
+                          <span class="prog-dot" id="dot{$idx}"> </span>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <span style="display:inline-block;width:10px;height:10px;"> </span>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                      <span class="num-text"><xsl:value-of select="position()"/></span>
+                    </div>
                   </td>
                   <td class="col-title">
                     <xsl:choose>
@@ -585,9 +649,12 @@
           </table>
         </div>
 
+        <button id="backTop" title="Torna su"
+                onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
         <footer>The Jackal vi augura buon divertimento. Tnk S@m</footer>
 
-        <!-- PLAYER BAR — centrato in basso -->
+        <!-- PLAYER BAR -->
         <div id="player-bar">
           <div class="player-top">
             <span id="player-title">—</span>
@@ -601,12 +668,75 @@
           </div>
         </div>
 
+        <!-- Array URL generato dall'XSL: indice = id riga (0-based) -->
         <script>
-          var currentFilter = 'all';
+          var Z_URLS = [<xsl:for-each select="/rss/channel/item">'<xsl:value-of select="enclosure/@url"/>'<xsl:if test="position() != last()">,</xsl:if></xsl:for-each>];
+        </script>
 
-          function getRows() {
-            return document.querySelectorAll('#mainTable tbody tr');
+        <script>
+          /* ── STORAGE ───────────────────────────────────────────
+             localStorage key "z105"
+             entry per URL: p=posizione(s), d=durata(s), f=preferito, done=bool
+          ──────────────────────────────────────────────────────── */
+          var SK = 'z105';
+          var ST = {};
+          function loadST() { try { ST = JSON.parse(localStorage.getItem(SK)||'{}'); } catch(e){ST={};} }
+          function saveST() { try { localStorage.setItem(SK, JSON.stringify(ST)); } catch(e){} }
+          function entry(url) { if (!ST[url]) ST[url]={p:0,d:0,f:false,done:false}; return ST[url]; }
+
+          /* ── Dot aggiornamento ─────────────────────────────── */
+          function updateDot(idx) {
+            var url = Z_URLS[idx];
+            if (!url) return;
+            var dot = document.getElementById('dot'+idx);
+            if (!dot) return;
+            var e = ST[url];
+            dot.classList.remove('started','done');
+            if (!e) return;
+            var pct = e.d > 0 ? e.p / e.d : 0;
+            if (e.done || pct >= 0.85)   dot.classList.add('done');
+            else if (pct > 0.01)         dot.classList.add('started');
           }
+
+          function updateAllDots() {
+            for (var i = 0; i &lt; Z_URLS.length; i++) { updateDot(i); }
+          }
+
+          /* ── Applica classi fav/listened alle righe ─────────── */
+          function applyRowStates() {
+            for (var i = 0; i &lt; Z_URLS.length; i++) {
+              var url = Z_URLS[i];
+              var row = document.getElementById('r'+i);
+              if (!row || !url) continue;
+              var e = ST[url];
+              var faved    = e &amp;&amp; e.f;
+              var listened = e &amp;&amp; (e.done || (e.d > 0 &amp;&amp; e.p/e.d >= 0.85));
+              row.classList.toggle('favorited', !!faved);
+              row.classList.toggle('listened',  !!listened);
+              var star = row.querySelector('.fav-btn');
+              if (star) star.classList.toggle('faved', !!faved);
+            }
+          }
+
+          /* ── Toggle preferito ──────────────────────────────── */
+          function toggleFav(idx, btn) {
+            var url = Z_URLS[idx];
+            if (!url) return;
+            var e = entry(url);
+            e.f = !e.f;
+            saveST();
+            btn.classList.toggle('faved', e.f);
+            var row = document.getElementById('r'+idx);
+            if (row) row.classList.toggle('favorited', e.f);
+            if (currentFilter === 'fav') filterTable();
+          }
+
+          /* ── PLAYER ────────────────────────────────────────── */
+          var currentFilter = 'all';
+          var saveTimer     = null;
+          var currentIdx    = -1;
+
+          function getRows() { return document.querySelectorAll('#mainTable tbody tr'); }
 
           function rowMediaType(row) {
             var badge = row.querySelector('.badge');
@@ -624,51 +754,80 @@
             rows.forEach(function(row) {
               var text = row.textContent.toLowerCase();
               var mt   = rowMediaType(row);
-              var matchSearch = !q || text.indexOf(q) !== -1;
-              var matchFilter = currentFilter === 'all' ||
-                (currentFilter === 'video' ? mt === 'video' : mt === currentFilter);
-              if (matchSearch &amp;&amp; matchFilter) {
-                row.classList.remove('hidden'); visible++;
-              } else {
-                row.classList.add('hidden');
-              }
+              var ms   = !q || text.indexOf(q) !== -1;
+              var mf;
+              if (currentFilter === 'all')          mf = true;
+              else if (currentFilter === 'fav')     mf = row.classList.contains('favorited');
+              else if (currentFilter === 'video')   mf = mt === 'video';
+              else                                  mf = mt === currentFilter;
+              if (ms &amp;&amp; mf) { row.classList.remove('hidden'); visible++; }
+              else             { row.classList.add('hidden'); }
             });
             document.getElementById('countBadge').textContent = visible + ' episodi';
           }
 
           function setFilter(type, btn) {
             currentFilter = type;
-            document.querySelectorAll('.filter-btn').forEach(function(b) {
-              b.classList.remove('active');
-            });
+            document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
             btn.classList.add('active');
             filterTable();
           }
 
+          /* Salva posizione ogni 5s */
+          function persistPos(el, idx) {
+            var url = Z_URLS[idx];
+            if (!url || !el || !el.duration) return;
+            var e = entry(url);
+            e.p = el.currentTime;
+            e.d = el.duration;
+            if (e.d > 0 &amp;&amp; e.p/e.d >= 0.85) e.done = true;
+            saveST();
+            updateDot(idx);
+            var row = document.getElementById('r'+idx);
+            if (row) row.classList.toggle('listened', !!e.done);
+          }
+
+          function hookMedia(el, idx) {
+            el.addEventListener('timeupdate', function() { persistPos(el, idx); });
+            el.addEventListener('ended', function() {
+              var url = Z_URLS[idx];
+              if (url) { var e = entry(url); e.done = true; saveST(); updateDot(idx); }
+            });
+          }
+
           function playMedia(url, type, title, rowEl) {
-            var audioEl  = document.getElementById('audio-player');
-            var videoEl  = document.getElementById('video-player');
-            var liveEl   = document.getElementById('live-iframe');
-            var bar      = document.getElementById('player-bar');
-            var titleEl  = document.getElementById('player-title');
-
-            document.querySelectorAll('tr.playing').forEach(function(r) { r.classList.remove('playing'); });
+            var audioEl = document.getElementById('audio-player');
+            var videoEl = document.getElementById('video-player');
+            var liveEl  = document.getElementById('live-iframe');
+            var bar     = document.getElementById('player-bar');
+            document.getElementById('player-title').textContent = title || url;
+            document.querySelectorAll('tr.playing').forEach(function(r){r.classList.remove('playing');});
             if (rowEl) rowEl.classList.add('playing');
-            titleEl.textContent = title || url;
-
             liveEl.src = ''; liveEl.style.display = 'none';
+            clearInterval(saveTimer);
+
+            /* trova indice dall'URL */
+            var idx = -1;
+            for (var i = 0; i &lt; Z_URLS.length; i++) { if (Z_URLS[i] === url) { idx = i; break; } }
+            currentIdx = idx;
+            var savedPos = (idx >= 0 &amp;&amp; ST[url] &amp;&amp; ST[url].p > 5) ? ST[url].p : 0;
 
             if (type === 'video') {
               audioEl.pause(); audioEl.style.display = 'none';
-              videoEl.src = url; videoEl.style.display = 'block'; videoEl.play();
-              document.body.classList.remove('player-open', 'player-open-live');
+              videoEl.src = url; videoEl.style.display = 'block';
+              videoEl.addEventListener('loadedmetadata', function(){ if(savedPos>0)videoEl.currentTime=savedPos; videoEl.play(); },{once:true});
+              if (idx >= 0) hookMedia(videoEl, idx);
+              document.body.classList.remove('player-open','player-open-live');
               document.body.classList.add('player-open-video');
             } else {
               videoEl.pause(); videoEl.style.display = 'none';
-              audioEl.src = url; audioEl.style.display = 'block'; audioEl.play();
-              document.body.classList.remove('player-open-video', 'player-open-live');
+              audioEl.src = url; audioEl.style.display = 'block';
+              audioEl.addEventListener('loadedmetadata', function(){ if(savedPos>0)audioEl.currentTime=savedPos; audioEl.play(); },{once:true});
+              if (idx >= 0) hookMedia(audioEl, idx);
+              document.body.classList.remove('player-open-video','player-open-live');
               document.body.classList.add('player-open');
             }
+            saveTimer = setInterval(function(){ persistPos(type==='video'?videoEl:audioEl, currentIdx); }, 5000);
             bar.classList.add('visible');
           }
 
@@ -676,71 +835,65 @@
             var audioEl = document.getElementById('audio-player');
             var videoEl = document.getElementById('video-player');
             var liveEl  = document.getElementById('live-iframe');
-            var bar     = document.getElementById('player-bar');
-            var titleEl = document.getElementById('player-title');
-
-            document.querySelectorAll('tr.playing').forEach(function(r) { r.classList.remove('playing'); });
+            document.querySelectorAll('tr.playing').forEach(function(r){r.classList.remove('playing');});
             if (rowEl) rowEl.classList.add('playing');
-            titleEl.textContent = '&#128250; ' + (title || 'Diretta Live');
-
+            document.getElementById('player-title').textContent = title || 'Diretta Live';
+            clearInterval(saveTimer);
             audioEl.pause(); audioEl.style.display = 'none';
             videoEl.pause(); videoEl.style.display = 'none';
             liveEl.src = url; liveEl.style.display = 'block';
-
-            document.body.classList.remove('player-open', 'player-open-video');
+            document.body.classList.remove('player-open','player-open-video');
             document.body.classList.add('player-open-live');
-            bar.classList.add('visible');
+            document.getElementById('player-bar').classList.add('visible');
           }
 
           function closePlayer() {
             var audioEl = document.getElementById('audio-player');
             var videoEl = document.getElementById('video-player');
             var liveEl  = document.getElementById('live-iframe');
+            if (currentIdx >= 0) persistPos(audioEl.style.display!=='none'?audioEl:videoEl, currentIdx);
+            clearInterval(saveTimer);
             audioEl.pause(); audioEl.src = '';
             videoEl.pause(); videoEl.src = '';
             liveEl.src = ''; liveEl.style.display = 'none';
             document.getElementById('player-bar').classList.remove('visible');
-            document.body.classList.remove('player-open', 'player-open-video', 'player-open-live');
-            document.querySelectorAll('tr.playing').forEach(function(r) { r.classList.remove('playing'); });
+            document.body.classList.remove('player-open','player-open-video','player-open-live');
+            document.querySelectorAll('tr.playing').forEach(function(r){r.classList.remove('playing');});
+            currentIdx = -1;
           }
 
+          /* ── INIT ──────────────────────────────────────────── */
           window.onload = function() {
+            loadST();
             filterTable();
+            applyRowStates();
+            updateAllDots();
 
-            var hdr = document.getElementById('siteHeader');
+            var hdr     = document.getElementById('siteHeader');
+            var backTop = document.getElementById('backTop');
 
-            // Padding-top corpo = altezza header (compensa position:fixed)
-            function setBodyPad() {
-              document.body.style.paddingTop = hdr.offsetHeight + 'px';
-            }
+            function setBodyPad() { document.body.style.paddingTop = hdr.offsetHeight + 'px'; }
             setBodyPad();
             window.addEventListener('resize', setBodyPad);
 
-            // Nascondi header scrollando giù, mostralo tornando su
-            var lastY = 0;
-            var ticking = false;
+            var lastY = 0, ticking = false;
             window.addEventListener('scroll', function() {
               if (!ticking) {
                 window.requestAnimationFrame(function() {
                   var y = window.scrollY;
-                  if (y > lastY &amp;&amp; y > hdr.offsetHeight) {
-                    hdr.classList.add('hdr-hidden');
-                  } else {
-                    hdr.classList.remove('hdr-hidden');
-                  }
-                  lastY = y;
-                  ticking = false;
+                  if (y > lastY &amp;&amp; y > hdr.offsetHeight) hdr.classList.add('hdr-hidden');
+                  else hdr.classList.remove('hdr-hidden');
+                  if (y > 400) backTop.classList.add('vis');
+                  else backTop.classList.remove('vis');
+                  lastY = y; ticking = false;
                 });
                 ticking = true;
               }
-            }, { passive: true });
+            });
 
-            // Nascondi msg-bar se il testo è vuoto
             var msgEl = document.getElementById('msgText');
             var barEl = document.getElementById('msgBar');
-            if (msgEl &amp;&amp; barEl &amp;&amp; !msgEl.textContent.trim()) {
-              barEl.classList.add('msg-empty');
-            }
+            if (msgEl &amp;&amp; barEl &amp;&amp; !msgEl.textContent.trim()) barEl.classList.add('msg-empty');
           };
         </script>
 
