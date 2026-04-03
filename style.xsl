@@ -506,7 +506,7 @@
           <div class="header-inner">
 
             <div class="header-text">
-              <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> <span/></h1>
+              <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> by The Jackal™ Tnx S@m <span/></h1>
               <p class="desc">
                 <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
                    target="_blank"
@@ -666,7 +666,7 @@
         <button id="backTop" title="Torna su"
                 onclick="window.scrollTo({{top:0,behavior:'smooth'}})">&#8679;</button>
 
-        <footer>The Jackal vi augura buon divertimento. Tnk S@m</footer>
+        <footer>The Jackal™ vi augura buon divertimento. Tnx S@m</footer>
 
         <!-- PLAYER BAR -->
         <div id="player-bar">
