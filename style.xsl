@@ -132,10 +132,10 @@
           }
           .msg-bar-icon { flex-shrink: 0; font-size: 0.82rem; margin-top: 1px; }
           .msg-bar.msg-empty { display: none; }
-
+          /* ── TITOLO del Html ────────────────────────────────── */
           .site-header h1 {
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 1rem;
+            font-weight: 500;
             letter-spacing: -0.5px;
             color: #63c6f7;
           }
