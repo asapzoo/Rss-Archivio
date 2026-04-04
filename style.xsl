@@ -140,7 +140,21 @@
             color: #63c6f7;
           }
 
-          .site-header h1 span { color: #fd0; }
+          .site-header h1 .rss-title { color: #fd0; }
+
+          /* ══════════════════════════════════════════════════════
+             BYLINE — modifica qui font-size e color a piacimento
+             font-size: es. 0.75rem, 1rem, 1.2rem…
+             color:     es. #aaaacc, #ffd740, #e94560…
+          ══════════════════════════════════════════════════════ */
+          .site-header h1 .byline {
+            font-size: 0.78rem;
+            font-weight: 400;
+            color: #9090b8;
+            letter-spacing: 0.3px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+          }
 
           .site-header p.desc {
             color: #fd0;
@@ -424,7 +438,7 @@
 
           /* ── COLONNA # (numero | dot | stella) in riga ── */
           .col-num {
-            width: 80px; text-align: center;
+            width: 90px; text-align: center;
             vertical-align: middle;
             padding: 0.4rem 0.4rem 0.4rem 0.6rem !important;
           }
@@ -433,37 +447,44 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 7px;
           }
-          .num-text { color: #666688; font-size: 0.75rem; line-height: 1; min-width: 16px; text-align: right; }
+          /* ── numero progressivo: giallo, visibile ── */
+          .num-text {
+            color: #ffd740;
+            font-size: 0.92rem;
+            font-weight: 700;
+            line-height: 1;
+            min-width: 20px;
+            text-align: right;
+          }
 
           /* Dot progresso — bianco di default, cliccabile per reset */
           .prog-dot {
             display: inline-block;
-            width: 10px; height: 10px;
+            width: 14px; height: 14px;
             border-radius: 50%;
             background: #c8c8e0;
-            border: 1.5px solid #c8c8e0;
+            border: 2px solid #c8c8e0;
             cursor: pointer;
             flex-shrink: 0;
             transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
-            title: "Click per reset";
           }
           .prog-dot.started {
             background: #2060b0;
             border-color: #60b0ff;
-            box-shadow: 0 0 5px rgba(96,176,255,0.6);
+            box-shadow: 0 0 6px rgba(96,176,255,0.7);
           }
           .prog-dot.done {
             background: #00a050;
             border-color: #00e676;
-            box-shadow: 0 0 6px rgba(0,230,118,0.6);
+            box-shadow: 0 0 7px rgba(0,230,118,0.7);
           }
 
           /* Stella preferiti */
           .fav-btn {
             background: none; border: none; cursor: pointer;
-            font-size: 13px; padding: 0; line-height: 1;
+            font-size: 17px; padding: 0; line-height: 1;
             color: #3a3a5e;
             transition: color 0.2s, transform 0.15s;
           }
@@ -506,7 +527,7 @@
           <div class="header-inner">
 
             <div class="header-text">
-              <h1>&#127925; <span><xsl:value-of select="/rss/channel/title"/></span> by The Jackal™ Tnx S@m <span/></h1>
+              <h1>&#127925; <span class="rss-title"><xsl:value-of select="/rss/channel/title"/></span><span class="byline">by The Jackal&#8482; Tnx S@m</span></h1>
               <p class="desc">
                 <a href="https://asapzoo.github.io/Rss-Archivio/rss.xml"
                    target="_blank"
