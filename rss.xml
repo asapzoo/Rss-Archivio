@@ -10,14 +10,14 @@
 <link>https://asapzoo.github.io/Rss-Archivio/rss.xml</link>
 <description>Dal '99 e' e rimarra'... il programma che NON piace!...</description>
 <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml" rel="self"/>
-<lastBuildDate>Fri, 10 Apr 2026 23:46:38 +0200</lastBuildDate>
+<lastBuildDate>Sat, 11 Apr 2026 16:21:49 +0200</lastBuildDate>
 
 <!-- ITEM 1: 105 Tv diretta -->
 <item>
   <title>105 Tv &amp; Zoo di 105 Diretta</title>
   <link>https://asapzoo.github.io/Rss-Archivio/player-multi.html</link>
   <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/player-multi.html</guid>
-  <pubDate>Fri, 10 Apr 2026 23:46:38 +0200</pubDate>
+  <pubDate>Sat, 11 Apr 2026 16:21:49 +0200</pubDate>
   <description><![CDATA[
     <p><strong>105 Tv</strong>Live</p>
     <p><strong>Zoo di 105</strong>tutti i giorni dalle 14:00 alle 16:00</p>
@@ -29,7 +29,7 @@
 <title>Diretta Radio</title>
 <link>http://icecast.unitedradio.it/Radio105.mp3</link>
 <description>Diretta Radio</description>
-<pubDate>Fri, 10 Apr 2026 23:46:38 +0200</pubDate>
+<pubDate>Sat, 11 Apr 2026 16:21:49 +0200</pubDate>
 <guid isPermaLink="true">http://icecast.unitedradio.it/Radio105.mp3</guid>
 <enclosure length="98146713" type="audio/mpeg" url="http://icecast.unitedradio.it/Radio105.mp3"/>
 </item>
@@ -37,7 +37,7 @@
 <title>Zoo-Radio</title>
 <link>http://icy.unitedradio.it/105Zoo.mp3</link>
 <description>Lo Zoo di 105 24/7 - Qui potete ascoltare lo Zoo h24</description>
-<pubDate>Fri, 10 Apr 2026 23:46:38 +0200</pubDate>
+<pubDate>Sat, 11 Apr 2026 16:21:49 +0200</pubDate>
 <guid isPermaLink="true">http://icy.unitedradio.it/105Zoo.mp3</guid>
 <enclosure length="98123123" type="audio/mpeg" url="http://icy.unitedradio.it/105Zoo.mp3"/>
 </item>
@@ -45,12 +45,20 @@
 <title>Revolution 935</title>
 <link>https://centova87.shoutcastservices.com/proxy/revolution935/stream</link>
 <description>Revolution 935 by Marco Mazzoli</description>
-<pubDate>Fri, 10 Apr 2026 23:46:38 +0200</pubDate>
+<pubDate>Sat, 11 Apr 2026 16:21:49 +0200</pubDate>
 <guid isPermaLink="true">https://centova87.shoutcastservices.com/proxy/revolution935/stream</guid>
 <enclosure length="98146713" type="audio/mpeg" url="https://centova87.shoutcastservices.com/proxy/revolution935/stream"/>
 </item>
   
                       <!-- Puntate Giornaliere -->
+<item>
+<title>Test</title>
+<link>https://app.talkshoe.com/drive_files/download/050a721d-8a01-449c-b19e-4684ab860876.mp3</link>
+<description>Zoo-Sab,11-04-2026-S@m</description>
+<pubDate>Sat, 11 Apr 2026 16:21:49 +0200</pubDate>
+<guid isPermaLink="false">050a721d-8a01-449c-b19e-4684ab860876ffffffff</guid>
+<enclosure length="100123123" type="audio/mpeg" url="https://app.talkshoe.com/drive_files/download/050a721d-8a01-449c-b19e-4684ab860876.mp3"/>
+</item>
 <item>
 <title>Zoo-10-04-2026-Compilation-S@m</title>
 <link>https://app.talkshoe.com/drive_files/download/050a721d-8a01-449c-b19e-4684ab860876.mp3</link>
