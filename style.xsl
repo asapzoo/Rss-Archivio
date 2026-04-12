@@ -534,7 +534,7 @@
                    style="color:#fd0; text-decoration:underline; font-weight:300;">
                   Novit&#224; da ora anche dai Browser
                 </a>
-                <a href="https://feeds.feedburner.com/zoo105"
+                <a href="https://telegra.ph/COME-ASCOLTARE-I-PODCAST-DELLO-ZOO-DI-105-SU-ANDROID-E-iOS-01-12"
                    target="_blank"
                    style="color:#fd0; text-decoration:none; font-weight:600; margin-left:0.75rem; border:1px solid #fd0; border-radius:5px; padding:0.1rem 0.5rem; font-size:0.78rem; vertical-align:middle;">
                   &#127911; App Podcast
