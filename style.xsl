@@ -67,18 +67,14 @@
             min-height: 100vh;
           }
 
-          /* ── HEADER — fixed, scompare scrollando giù ── */
+          /* ── HEADER — scorre con la pagina ── */
           .site-header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             padding: 1rem 2rem 0.9rem;
             border-bottom: 2px solid #e94560;
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
+            position: static;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
           }
-          .site-header.hdr-hidden { transform: translateY(-100%); }
 
           .header-inner {
             max-width: 1400px;
@@ -916,27 +912,12 @@
             applyRowStates();
             updateAllDots();
 
-            var hdr     = document.getElementById('siteHeader');
             var backTop = document.getElementById('backTop');
 
-            function setBodyPad() { document.body.style.paddingTop = hdr.offsetHeight + 'px'; }
-            setBodyPad();
-            window.addEventListener('resize', setBodyPad);
-
-            var lastY = 0, ticking = false;
             window.addEventListener('scroll', function() {
-              if (!ticking) {
-                window.requestAnimationFrame(function() {
-                  var y = window.scrollY;
-                  if (y > lastY &amp;&amp; y > hdr.offsetHeight) hdr.classList.add('hdr-hidden');
-                  else hdr.classList.remove('hdr-hidden');
-                  if (y > 400) backTop.classList.add('vis');
-                  else backTop.classList.remove('vis');
-                  lastY = y; ticking = false;
-                });
-                ticking = true;
-              }
-            });
+              if (window.scrollY > 400) backTop.classList.add('vis');
+              else backTop.classList.remove('vis');
+            }, { passive: true });
 
             var msgEl = document.getElementById('msgText');
             var barEl = document.getElementById('msgBar');
