@@ -514,6 +514,112 @@
           }
           #backTop.vis { opacity: 1; pointer-events: auto; }
           #backTop:hover { transform: translateY(-3px); background: rgba(233,69,96,0.1); }
+
+          /* ── RESPONSIVE: TABLET (≤900px) ─────────────────── */
+@media (max-width: 900px) {
+  .site-header { padding: 0.8rem 1rem 0.7rem; }
+
+  .header-inner { gap: 0.8rem; }
+
+  .site-header h1 { font-size: 1.4rem; }
+  .site-header h1 .byline { display: block; margin-left: 0; margin-top: 0.2rem; font-size: 0.72rem; }
+  .site-header p.desc { font-size: 0.78rem; }
+
+  .msg-bar { max-width: 140px; font-size: 0.68rem; }
+
+  .header-img { height: clamp(60px, 7vw, 90px); }
+
+  .toolbar { margin: 1rem auto 0; gap: 0.6rem; }
+
+  .count-badge { margin-left: 0; }
+
+  .table-wrapper { padding: 0 0.5rem; margin-bottom: 2rem; }
+
+  thead th { font-size: 0.68rem; padding: 0.7rem 0.6rem; }
+
+  td { padding: 0.65rem 0.6rem; font-size: 0.82rem; }
+
+  .col-desc { display: none; }
+
+  .col-title { max-width: 200px; }
+
+  #player-bar { width: 96%; padding: 0.7rem 1rem; }
+}
+
+/* ── RESPONSIVE: MOBILE (≤600px) ─────────────────── */
+@media (max-width: 600px) {
+  .site-header { padding: 0.7rem 0.75rem 0.6rem; }
+
+  .header-inner { flex-wrap: nowrap; align-items: flex-start; gap: 0.5rem; }
+
+  .site-header h1 { font-size: 1.15rem; line-height: 1.25; }
+  .site-header h1 .byline { font-size: 0.68rem; }
+  .site-header p.desc { font-size: 0.72rem; margin-top: 0.3rem; flex-wrap: wrap; gap: 0.3rem; display: flex; }
+
+  .msg-bar { display: none; }
+
+  .header-img { height: 56px; border-radius: 7px; }
+
+  .toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .search-box { min-width: unset; width: 100%; }
+
+  .filter-btns { gap: 0.35rem; }
+
+  .filter-btn { padding: 0.4rem 0.65rem; font-size: 0.72rem; }
+
+  .count-badge { align-self: flex-end; }
+
+  .table-wrapper { padding: 0 0.4rem; overflow-x: auto; }
+
+  table { min-width: 480px; border-radius: 8px; }
+
+  thead th { font-size: 0.65rem; padding: 0.6rem 0.5rem; }
+
+  td { padding: 0.55rem 0.5rem; font-size: 0.8rem; }
+
+  .col-desc { display: none; }
+  .col-date { display: none; }
+
+  .col-title { max-width: 170px; }
+
+  .title-text { font-size: 0.82rem; }
+
+  .badge { font-size: 0.58rem; padding: 0.1rem 0.35rem; }
+
+  .play-btn { padding: 0.4rem 0.6rem; font-size: 0.72rem; gap: 0.2rem; }
+
+  .num-text { font-size: 0.78rem; min-width: 16px; }
+
+  .col-num { width: 70px; padding: 0.4rem 0.25rem 0.4rem 0.4rem !important; }
+
+  #player-bar { width: 100%; border-radius: 12px 12px 0 0; padding: 0.6rem 0.9rem; }
+
+  #player-title { font-size: 0.78rem; }
+
+  #audio-player { height: 36px; }
+
+  #video-player { max-height: 160px; }
+
+  body.player-open       { padding-bottom: 100px; }
+  body.player-open-video { padding-bottom: 260px; }
+  body.player-open-live  { padding-bottom: 390px; }
+
+  #backTop { bottom: 80px; right: 16px; width: 36px; height: 36px; font-size: 18px; }
+
+  footer { font-size: 0.7rem; padding: 1rem; }
+}
+
+/* ── FIX: tabella scrollabile su mobile ──────────── */
+@media (max-width: 600px) {
+  .table-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+}
         </style>
       </head>
       <body>
