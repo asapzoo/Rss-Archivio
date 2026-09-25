@@ -10,14 +10,14 @@
 <link>https://asapzoo.github.io/Rss-Archivio/rss.xml</link>
 <description>Dal '99 e' e rimarra'... il programma che NON piace!...</description>
 <atom:link href="https://asapzoo.github.io/Rss-Archivio/rss.xml" rel="self"/>
-<lastBuildDate>Wed, 23 Sep 2026 16:37:34 +0200</lastBuildDate>
+<lastBuildDate>Fri, 25 Sep 2026 09:37:39 +0200</lastBuildDate>
 
 <!-- ITEM 1: 105 Tv diretta -->
 <item>
   <title>105 Tv &amp; Zoo di 105 Diretta</title>
   <link>https://asapzoo.github.io/Rss-Archivio/player-multi.html</link>
   <guid isPermaLink="true">https://asapzoo.github.io/Rss-Archivio/player-multi.html</guid>
-  <pubDate>Wed, 23 Sep 2026 16:37:34 +0200</pubDate>
+  <pubDate>Fri, 25 Sep 2026 09:37:39 +0200</pubDate>
   <description><![CDATA[
     <p><strong>105 Tv</strong>Live</p>
     <p><strong>Zoo di 105</strong>tutti i giorni dalle 14:00 alle 16:00</p>
@@ -29,7 +29,7 @@
 <title>Zoo-Radio</title>
 <link>http://icy.unitedradio.it/105Zoo.mp3</link>
 <description>Lo Zoo di 105 24/7 - Qui potete ascoltare lo Zoo h24</description>
-<pubDate>Wed, 23 Sep 2026 16:37:34 +0200</pubDate>
+<pubDate>Fri, 25 Sep 2026 09:37:39 +0200</pubDate>
 <guid isPermaLink="true">http://icy.unitedradio.it/105Zoo.mp3</guid>
 <enclosure length="98123123" type="audio/mpeg" url="http://icy.unitedradio.it/105Zoo.mp3"/>
 </item>
@@ -37,12 +37,20 @@
 <title>Revolution 935</title>
 <link>https://centova87.shoutcastservices.com/proxy/revolution935/stream</link>
 <description>Revolution 935 by Marco Mazzoli</description>
-<pubDate>Wed, 23 Sep 2026 16:37:34 +0200</pubDate>
+<pubDate>Fri, 25 Sep 2026 09:37:39 +0200</pubDate>
 <guid isPermaLink="true">https://centova87.shoutcastservices.com/proxy/revolution935/stream</guid>
 <enclosure length="98146713" type="audio/mpeg" url="https://centova87.shoutcastservices.com/proxy/revolution935/stream"/>
 </item>
   
                       <!-- Puntate Giornaliere -->
+<item>
+<title>Zoo-24-09-2026-Compilation-S@m</title>
+<link>https://app.talkshoe.com/drive_files/download/7632e3a6-ca32-47ca-bb08-b0048fcda16e.mp3</link>
+<description>Zoo-Gio,24-09-2026-Compilation-S@m</description>
+<pubDate>Fri, 25 Sep 2026 09:37:39 +0200</pubDate>
+<guid isPermaLink="false">7632e3a6-ca32-47ca-bb08-b0048fcda16e</guid>
+<enclosure length="100123123" type="audio/mpeg" url="https://app.talkshoe.com/drive_files/download/7632e3a6-ca32-47ca-bb08-b0048fcda16e.mp3"/>
+</item>
 <item>
 <title>ZooTv-23-09-2026-Mer-S@m</title>
 <link>https://app.talkshoe.com/drive_files/download/9ba84603-0cd9-4c26-b289-9732684965cb.mp4</link>
